@@ -1,0 +1,149 @@
+<p-toast></p-toast>
+<p-card class="card-header">
+    <!--  <div class="grid" style="padding:0 !important;margin:0!important;">
+        <div class="md:col-6 sm:col-12 header-item" style="text-align: left;">
+
+        </div>
+        <div class="md:col-6 sm:col-12 header-item" style="text-align: right;">
+            <brb-p-tag icon="pi pi-file" value="Formulario: A1"></brb-p-tag>
+
+        </div>
+    </div> -->
+    <div class="grid" style="padding:0 !important;margin:0!important;">
+        <div class="sm:col-12 md:col-6 sm:col-12 header-item">
+            <ng-container *ngIf="checkInspectionAndRequestAreSames('dominio'); else dominioB">
+                <!-- Template A -->
+                <h1 class="text-dominio">
+                    {{inspection.dominio}}
+                </h1>
+            </ng-container>
+
+            <ng-template #dominioB>
+                <h1 class="text-dominio" style="color:black">
+                    <span [tooltipOptions]="tooltipOptions"
+                        pTooltip="Dominio solicitado {{inspection.Solicitud?.dominio || ''}}">{{inspection.dominio}}</span>
+                </h1>
+            </ng-template>
+
+            <!--            <div class="marca-modelo-container">-->
+            <!--                <ng-container *ngIf="checkInspectionAndRequestAreSames('marca'); else marcaB">-->
+            <!--                    <span>{{inspection.marca}}</span>-->
+            <!--                </ng-container>-->
+
+            <!--                <ng-template #marcaB>-->
+            <!--                    <span style="color:red;font-weight: bold;margin-right:6px !important;">-->
+            <!--                        <span [tooltipOptions]="tooltipOptions"-->
+            <!--                            pTooltip="Dominio solicitado {{inspection.Solicitud?.marca || ''}}">{{inspection.marca}}-->
+            <!--                        </span>-->
+            <!--                    </span>-->
+            <!--                </ng-template>-->
+            <!--                <span style="margin:0 6px !important;"> - </span>-->
+            <!--                <ng-container *ngIf="checkInspectionAndRequestAreSames('modelo'); else modeloB">-->
+            <!--                    <span>{{inspection.modelo}}</span>-->
+            <!--                </ng-container>-->
+
+            <!--                <ng-template #modeloB>-->
+            <!--                    <span style="color:red;font-weight: bold;">-->
+            <!--                        <span [tooltipOptions]="tooltipOptions"-->
+            <!--                            pTooltip="Dominio solicitado {{inspection.Solicitud?.modelo || ''}}">{{inspection.modelo}}</span>-->
+            <!--                    </span>-->
+            <!--                </ng-template>-->
+            <!--            </div>-->
+
+            <div class="marca-modelo-container">
+                <ng-container *ngIf="checkInspectionAndRequestAreSames('marca'); else marcaB">
+                    <span>{{inspection.marca}}</span>
+                </ng-container>
+
+                <ng-template #marcaB>
+                    <span style="color:rgb(89, 89, 89);font-weight: bold;margin-right:6px !important;">
+                        <span [tooltipOptions]="tooltipOptions"
+                            pTooltip="Marca solicitada {{inspection.Solicitud?.marca || ''}}">{{inspection.marca}}
+                        </span>
+                    </span>
+                </ng-template>
+            </div>
+            <div class="marca-modelo-container">
+                <ng-container *ngIf="checkInspectionAndRequestAreSames('modelo'); else modeloB">
+                    <span>{{inspection.modelo}}</span>
+                </ng-container>
+
+                <ng-template #modeloB>
+                    <span style="color:rgb(89, 89, 89);font-weight: bold;">
+                        <span [tooltipOptions]="tooltipOptions"
+                            pTooltip="Modelo solicitado {{inspection.Solicitud?.modelo || ''}}">{{inspection.modelo}}</span>
+                    </span>
+                </ng-template>
+            </div>
+
+
+            <div class="vehicle-detail header-item">
+
+                <p class="text-tipo-vehiculo">{{inspection.tipo_vehiculo}}</p>
+
+                <p>
+                    {{inspection.InspeccionVarios?.km && inspection.InspeccionVarios.km > 0 ?
+                    inspection.InspeccionVarios.km
+                    + 'Km - ' : ''}} <span>{{getFormatVehiclePrice()}}</span>
+                </p>
+                <p class="depreciation"
+                    *ngIf="inspection.InspeccionVarios?.danio && inspection.InspeccionVarios?.danio > 0  && inspection.InspeccionVarios.precio">
+                    Depreciación Daños: {{getFormatDepreciation()}}
+                </p>
+            </div>
+        </div>
+
+        <div class="sm:col-12 md:col-6 ver-obs header-item">
+            <informe-header-ver *ngIf="inspection.ver" [VER]="inspection.ver"
+                [VERobject]="inspection.VERobject || {}"></informe-header-ver>
+            <p class="cobertura-description"> Cobertura Soportada: {{inspection.cobertura || 'No parametrizada'}}</p>
+            <p class="cobertura-description"> Cobertura Solicitada: {{inspection.Solicitud?.cobertura ||'No remitida'}}
+            </p>
+            <p class="cobertura-description" *ngIf="inspection.VERobject && inspection.VERobject.alerts?.length > 0">
+                Observaciones: {{getVERAlertsText()}}</p>
+        </div>
+
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="flex secondary-info" style="width:100%;flex-wrap: wrap;justify-content: center;">
+
+        <brb-p-tag backgroundColor="transparent" icon="pi pi-calendar" class="mr-2"
+            value="Realizada: {{inspection.fecha_inspeccion | date:'dd/MM/yyyy HH:mm'}}"></brb-p-tag>
+        <div class="flex align-items-center" style="align-items: center;">
+            <!--             <img alt="ase" src="https://tst.barbara.com.ar/img/logos/{{inspection.Aseguradora.Aseguradoras_Id}}.png"
+                class="logo-aseguradora" width="50px" /> -->
+            <brb-p-tag backgroundColor="transparent" value="{{inspection.Aseguradora.Aseguradoras_Nombre}}">
+            </brb-p-tag>
+        </div>
+        <brb-p-tag icon="pi pi-map-marker"
+            *ngIf="inspection.InspeccionVarios?.latitud && inspection.InspeccionVarios?.longitud"
+            backgroundColor="transparent" (click)="mostrarInformacionMapa()" style="cursor: pointer;"
+            value="Gelocalización"></brb-p-tag>
+        <brb-p-tag icon="pi pi-map-marker"
+            *ngIf="!inspection.InspeccionVarios?.latitud && !inspection.InspeccionVarios?.longitud"
+            backgroundColor="transparent" (click)="showGeoInfoFail()" style="cursor: pointer;"
+            value="Gelocalización"></brb-p-tag>
+
+        <brb-p-tag icon="pi pi-car" *ngIf="isInspectionWithDamages()" [color]="'red'" backgroundColor="transparent"
+            value="Daños detectados"></brb-p-tag>
+        <brb-p-tag icon="pi pi-info-circle" backgroundColor="transparent" value="Digital"></brb-p-tag>
+        <brb-p-tag icon="pi pi-camera" backgroundColor="transparent" value="Cámara"></brb-p-tag>
+
+        <brb-p-tag *ngIf="inspection.Solicitud?.reinspeccion === 1" backgroundColor="transparent"
+            value="Reinspección incompleta">
+            <span class='material-icons'>sync_problem</span>
+        </brb-p-tag>
+
+        <brb-p-tag *ngIf="inspection.Solicitud?.reinspeccion === 2"
+            backgroundColor="transparent" value="Reinspeccionada">
+            <span class='material-icons'>cached</span>
+        </brb-p-tag>
+
+        <brb-p-tag icon="pi pi-info-circle" backgroundColor="transparent"
+            value="{{getAuditByText(inspection.auditado_por)}}"></brb-p-tag>
+
+    </div>
+
+</p-card>

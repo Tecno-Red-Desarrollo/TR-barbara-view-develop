@@ -1,0 +1,15 @@
+.in-blue-border-circle {
+  display: block;
+  border-color: #1769aa;
+  border: 1px solid #1769aa;
+  color: #1769aa;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Verdana;
+  text-decoration: none;
+}

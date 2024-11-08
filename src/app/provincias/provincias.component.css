@@ -1,0 +1,26 @@
+.p-field>label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.p-field>input{
+    margin-bottom: 1rem;
+}
+
+.title-datatable {
+    font-size: 1.25rem;
+}
+
+.p-input-icon-left, .p-input-icon-right {
+    position: relative;
+    float: right;
+    margin-top: -4rem;
+}
+
+button {
+    margin-right: 0.7rem;
+}
+
+td, th {
+    font-size: 10pt !important;
+}

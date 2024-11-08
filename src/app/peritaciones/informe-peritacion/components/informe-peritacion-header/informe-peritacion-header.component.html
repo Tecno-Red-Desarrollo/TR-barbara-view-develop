@@ -1,0 +1,110 @@
+<p-toast></p-toast>
+<p-card class="card-header">
+    <!--  <div class="grid" style="padding:0 !important;margin:0!important;">
+        <div class="md:col-6 sm:col-12 header-item" style="text-align: left;">
+
+        </div>
+        <div class="md:col-6 sm:col-12 header-item" style="text-align: right;">
+            <brb-peritacion-tag icon="pi pi-file" value="Formulario: A1"></brb-peritacion-tag>
+
+        </div>
+    </div> -->
+    <div class="grid" style="padding:0 !important;margin:0!important;">
+        <div class="sm:col-12 md:col-6 sm:col-12 header-item">
+            <ng-container *ngIf="checkInspectionAndRequestAreSames('dominio'); else dominioB">
+                <!-- Template A -->
+                <h1 class="text-dominio">
+                    {{peritacion.Inspeccion?.dominio}}
+                </h1>
+            </ng-container>
+
+            <ng-template #dominioB>
+                <h1 class="text-dominio" style="color:black">
+                    <span [tooltipOptions]="tooltipOptions"
+                        pTooltip="Dominio solicitado {{peritacion.Inspeccion?.Solicitud?.dominio || ''}}">{{peritacion.Inspeccion?.dominio}}</span>
+                </h1>
+            </ng-template>
+
+
+            <div class="marca-modelo-container">
+                <ng-container *ngIf="checkInspectionAndRequestAreSames('marca'); else marcaB">
+                    <span>{{peritacion.Inspeccion?.marca}}</span>
+                </ng-container>
+
+                <ng-template #marcaB>
+                    <span style="color:rgb(89, 89, 89);font-weight: bold;margin-right:6px !important;">
+                        <span [tooltipOptions]="tooltipOptions"
+                            pTooltip="Marca solicitada {{peritacion.Inspeccion?.Solicitud?.marca || ''}}">{{peritacion.Inspeccion?.marca}}
+                        </span>
+                    </span>
+                </ng-template>
+            </div>
+            <div class="marca-modelo-container">
+                <ng-container *ngIf="checkInspectionAndRequestAreSames('modelo'); else modeloB">
+                    <span>{{peritacion.Inspeccion?.modelo}}</span>
+                </ng-container>
+
+                <ng-template #modeloB>
+                    <span style="color:rgb(89, 89, 89);font-weight: bold;">
+                        <span [tooltipOptions]="tooltipOptions"
+                            pTooltip="Modelo solicitado {{peritacion.Inspeccion?.Solicitud?.modelo || ''}}">{{peritacion.Inspeccion?.modelo}}</span>
+                    </span>
+                </ng-template>
+            </div>
+
+
+            <div class="vehicle-detail header-item">
+
+                <p class="text-tipo-vehiculo">{{peritacion.Inspeccion?.tipo_vehiculo}}</p>
+
+                <p>
+                    {{peritacion.Inspeccion?.InspeccionVarios?.km && peritacion.Inspeccion?.InspeccionVarios.km > 0 ?
+                    peritacion.Inspeccion?.InspeccionVarios.km
+                    + 'Km - ' : ''}} <span>{{getFormatVehiclePrice()}}</span>
+                </p>
+                <p class="depreciation"
+                    *ngIf="peritacion.Inspeccion?.InspeccionVarios?.danio && peritacion.Inspeccion?.InspeccionVarios?.danio > 0  && peritacion.Inspeccion?.InspeccionVarios.precio">
+                    Depreciación Daños: {{getFormatDepreciation()}}
+                </p>
+            </div>
+        </div>
+
+        <div class="sm:col-12 md:col-6 ver-obs header-item">
+            <p-button label="" icon="pi pi-search" styleClass="p-button-outlined p-button-rounded" pTooltip="Ver antecedente"
+                (click)="openHistory()"></p-button>
+        </div>
+
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="flex secondary-info" style="width:100%;flex-wrap: wrap;justify-content: center;">
+
+        <brb-peritacion-tag backgroundColor="transparent" icon="pi pi-calendar" class="mr-2"
+            value="Realizada: {{peritacion.Inspeccion?.fecha_inspeccion | date:'dd/MM/yyyy HH:mm'}}"></brb-peritacion-tag>
+        <div class="flex align-items-center" style="align-items: center;">
+            <!--             <img alt="ase" src="https://tst.barbara.com.ar/img/logos/{{inspection.Aseguradora.Aseguradoras_Id}}.png"
+                class="logo-aseguradora" width="50px" /> -->
+            <brb-peritacion-tag backgroundColor="transparent"
+                value="{{peritacion.Inspeccion?.Aseguradora.Aseguradoras_Nombre}}">
+            </brb-peritacion-tag>
+        </div>
+        <brb-peritacion-tag icon="pi pi-map-marker"
+            *ngIf="peritacion.Inspeccion?.InspeccionVarios?.latitud && peritacion.Inspeccion?.InspeccionVarios?.longitud"
+            backgroundColor="transparent" (click)="mostrarInformacionMapa()" style="cursor: pointer;"
+            value="Gelocalización"></brb-peritacion-tag>
+        <brb-peritacion-tag icon="pi pi-map-marker"
+            *ngIf="!peritacion.Inspeccion?.InspeccionVarios?.latitud && !peritacion.Inspeccion?.InspeccionVarios?.longitud"
+            backgroundColor="transparent" (click)="showGeoInfoFail()" style="cursor: pointer;"
+            value="Gelocalización"></brb-peritacion-tag>
+
+        <brb-peritacion-tag icon="pi pi-car" *ngIf="isInspectionWithDamages()" [color]="'red'"
+            backgroundColor="transparent" value="Daños detectados"></brb-peritacion-tag>
+        <brb-peritacion-tag icon="pi pi-info-circle" backgroundColor="transparent" value="Digital"></brb-peritacion-tag>
+        <brb-peritacion-tag icon="pi pi-camera" backgroundColor="transparent" value="Cámara"></brb-peritacion-tag>
+        <brb-peritacion-tag icon="pi pi-info-circle" backgroundColor="transparent"
+            value="{{getAuditByText(peritacion.Inspeccion?.auditado_por)}}"></brb-peritacion-tag>
+
+    </div>
+
+</p-card>

@@ -1,0 +1,24 @@
+<div class="text-blue-700 bicolor">
+  <div class="flex justify-content-center flex-wrap">
+    <div class="surface-card p-4 shadow-2 border-round mt-8">
+      <div class="text-center">
+          <label for="email" class="block text-900 font-medium mb-2 text-left">Email</label>
+          <input id="email" [(ngModel)]="email" type="email" pInputText class="w-full mb-3">
+
+          <label for="celular" class="block text-900 font-medium mb-2 text-left">Celular</label>
+          <input id="celular" [(ngModel)]="phone" type="text" pInputText class="w-full mb-3">
+
+          <button pButton pRipple label="Enviar" (click)="sendMail(email)" class="w-full bg-blue-700 p-button-raised p-button-rounded"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="displaySendingMessage" [dismissableMask]="false" [closable]="false" [modal]="true">
+  <div>
+      <div class="text-2xl text-blue-600 mb-3 font-medium text-center">Enviando avisos</div>
+      <div class="text-center">
+          <p-progressSpinner></p-progressSpinner>
+      </div>
+  </div>
+</p-dialog>

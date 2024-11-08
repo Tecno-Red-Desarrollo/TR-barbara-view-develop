@@ -1,0 +1,35 @@
+<div class="py-5 md:px-9 lg:px-8 text-center text-blue-700">
+    <div class="text-blue-600 mb-3 font-medium text-2xl mb-1 md:align-content-start">A tener en cuenta</div>
+        <div class="col-12 flex justify-content-center flex-wrap">
+            <div class="h-16rem ">
+                <div class="shadow-2 flex flex-column surface-card border-round px-3 py-3">               
+                    <div class="text-600 mb-5 text-blue-800">
+                        <p >El proceso de autoinspección debe ser completado en una misma sesión.</p> 
+                        <p>
+                            Durante el proceso te pediremos algunas fotos del auto, que deberán ser
+                            <b>sacadas en el mismo momento y en el mismo lugar</b> para que tengan 
+                            validez
+                        </p>
+                        <hr>
+                        <p class="text-blue-600"><b>Además, deberás tener mano:</b></p>                       
+                        <ul class="text-left list-none pl-0">
+                            <li class="mb-3">
+                                <i class="pi pi-check text-blue-600"></i> 
+                                <span class="ml-2">Tu registro de conducir</span>        
+                            </li>
+                            <li class="mb-3">
+                                <i class="pi pi-check text-blue-600"></i> 
+                                <span class="ml-2">La cédula de identificación del auto (cédula verde)</span>
+                            </li>
+                        </ul>
+                        <p class="mt-4">Si alguno de éstos están en formato digital 
+                            <b>podrás sacar una captura de la pantalla</b>
+                        </p> 
+                    </div>
+                </div>
+                <button pButton pRipple label="Continuar" icon="pi pi-chevron-circle-right" iconPos="right" 
+                class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 my-4"
+                (click)="nextPage()"></button>
+            </div>      
+        </div>         
+</div>

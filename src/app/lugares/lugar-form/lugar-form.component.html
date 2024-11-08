@@ -1,0 +1,80 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">{{formTitle}} Lugar</h1>
+
+<div class="surface-card p-4 shadow-2 border-round">  
+    <!-- <div class="text-3xl font-medium text-900 mb-3">{{formTitle}} lugar</div> -->
+    <div class="card">
+        <h5 *ngIf="lugar.id>0">{{lugar.id}}</h5>  
+        <div class="field grid">          
+            <label for="lugar" class="col-12 mb-2 md:col-1 md:mb-0">Lugar</label>
+            <div class="col-12 md:col-3"> <!-- mr-5 -->
+                <input pInputText id="lugar" type="text" class="inputfield w-full" [(ngModel)]="lugar.lugar_nombre">
+                <small class="p-error" *ngIf="submitted && !lugar.lugar_nombre">Campo requerido</small>
+            </div>
+
+            <label for="provincia_codigo" class="col-12 mb-2 md:col-1 md:mb-0">Provincia</label> 
+            <div class="col-12 md:col-3">
+                <input pInputText id="provincia_codigo" type="text" class="inputfield w-full" [(ngModel)]="lugar.provincia_codigo">
+                <!-- <p-dropdown class="inputfield d-grid" [options]="provincias" [(ngModel)]="selectedProvincia" (ngModelChange)="onChangeProvincia($event)"
+                            optionLabel="nombre" [showClear]="true" 
+                            placeholder="Seleccione...">
+                </p-dropdown> -->
+            </div>
+
+            <label for="ciudad_nombre" class="col-12 mb-2 md:col-1 md:mb-0">Ciudad</label> 
+            <div class="col-12 md:col-3">
+                <input pInputText id="lugar" type="text" class="inputfield w-full" [(ngModel)]="lugar.ciudad_id">
+                <!-- <p-dropdown class="inputfield d-grid" [options]="ciudades" [(ngModel)]="selectedCiudad" [autoDisplayFirst]="false"
+                            optionLabel="displayCiudad_CP" [showClear]="true" [virtualScroll]="true" [itemSize]="10" [filter]="true"
+                            placeholder="Seleccione..." >
+                </p-dropdown> -->
+            </div>
+        </div>
+        <div class="field grid">           
+            <label for="zona_trd" class="col-12 mb-2 md:col-1 md:mb-0">Zona tecnored</label>
+            <div class="col-12 md:col-3"> 
+                <input id="zona_trd" pInputText type="text" [(ngModel)]="lugar.zona_trd" class="inputfield w-full">
+                <small class="p-error" *ngIf="submitted && !lugar.zona_trd">Campo requerido</small>
+            </div>
+            <label for="zona_tarifaria" class="col-12 mb-2 md:col-1 md:mb-0">Zona tarifaria</label>
+            <div class="col-12 md:col-3"> 
+                <input pInputText id="zona_tarifaria" type="text" class="inputfield w-full" [(ngModel)]="lugar.zona_tarifaria">
+                <small class="p-error" *ngIf="submitted && !lugar.zona_tarifaria">Campo requerido</small>
+            </div>
+            <label for="clave_provloc" class="col-12 mb-2 md:col-1 md:mb-0">Clave provloc</label>
+            <div class="col-12 md:col-3"> 
+                <input pInputText id="clave_provloc" type="text" class="inputfield w-full" [(ngModel)]="lugar.clave_provloc">
+                <small class="p-error" *ngIf="submitted && !lugar.clave_provloc">Campo requerido</small>
+            </div>
+        </div>
+        <div class="field grid mt-5">       
+            <label for="activo" class="col-12 mb-2 md:col-1 md:mb-0">Inspecciones</label>
+            <div class="p-field-checkbox ml-2 mr-6">
+                <p-checkbox [(ngModel)]="lugar.dom_previa_auto" [binary]="lugar.dom_previa_auto" inputId="dom_previa_auto"></p-checkbox>
+                <label for="dom_previa_auto" class="ml-2">Autos a domicilio</label>
+            </div> 
+            <div class="p-field-checkbox mr-6">
+                <p-checkbox [(ngModel)]="lugar.centro" [binary]="lugar.centro" inputId="centro"></p-checkbox>
+                <label for="centro" class="ml-2">Autos en centros</label>
+            </div> 
+            <div class="p-field-checkbox mr-6">
+                <p-checkbox [(ngModel)]="lugar.siniestro_auto" [binary]="lugar.siniestro_auto"inputId="siniestro_auto"></p-checkbox>
+                <label for="siniestro_auto" class="ml-2">Autos siniestros</label>
+            </div> 
+            <div class="p-field-checkbox mr-6">
+                <p-checkbox [(ngModel)]="lugar.previa_hogar" [binary]="lugar.previa_hogar" inputId="previa_hogar"></p-checkbox>
+                <label for="previa_hogar" class="ml-2">De hogar</label>
+            </div>
+        </div>
+        <div class="field grid mt-5">
+            <label for="activo" class="col-12 mb-2 md:col-1 md:mb-0">Activo</label>          
+            <p-inputSwitch id="activo" [(ngModel)]="lugar.activo"></p-inputSwitch>
+        </div>
+        <div class="grid mt-5">
+            <div class="col-12">
+                <p-button label="Guardar" class="ml-2 float-right" icon="pi pi-check" (click)="saveLugar(lugar)"></p-button>
+                <button pButton pRipple type="button" label="Volver" icon="pi pi-chevron-left" class="p-button-warning float-right" routerLink="/lugar/todos"></button>
+            </div>
+        </div>
+    </div>
+</div>

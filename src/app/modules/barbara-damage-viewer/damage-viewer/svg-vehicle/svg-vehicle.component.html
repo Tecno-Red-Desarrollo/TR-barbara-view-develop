@@ -1,0 +1,26 @@
+<svg>
+    <g id="vehicleSvg" safe>
+
+
+        <g [innerHTML]="svgContentStyle"></g>
+
+        <g id="{{vehicleId}}">
+            <g id="laterales">
+                <g id="vehicle-left" [innerHTML]="svgContentLeft" style="cursor:pointer !important"
+                    (click)="onFigureClick('left')"></g>
+                <g id="vehicle-right" [innerHTML]="svgContentRight" style="cursor:pointer !important"
+                    (click)="onFigureClick('right')"></g>
+            </g>
+            <g id="front" [innerHTML]="svgContentFront" style="cursor:pointer !important"
+                (click)="onFigureClick('front')">
+
+            </g>
+            <g id="back" [innerHTML]="svgContentBack" style="cursor:pointer !important" (click)="onFigureClick('back')">
+
+            </g>
+            <g id="up" [innerHTML]="svgContentUp" style="cursor:pointer !important" (click)="onFigureClick('up')">
+
+            </g>
+        </g>
+    </g>
+</svg>

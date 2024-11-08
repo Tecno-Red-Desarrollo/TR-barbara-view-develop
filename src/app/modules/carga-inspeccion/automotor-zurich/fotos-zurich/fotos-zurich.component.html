@@ -1,0 +1,69 @@
+<p-blockUI [blocked]="blocked" key="locationBlock" ></p-blockUI>
+<div class="py-2 px-2 md:px-8 text-blue-700">
+  <div class="text-blue-600 mb-3 font-medium text-2xl md:align-content-start text-center">Fotos del vehículo</div>
+  <div class="text-blue-600 mb-3 md:align-content-start text-center">Tocá cada recuadro para activar la cámara</div>
+  <div class="grid text-blue-700 p-2">
+    <div *ngFor="let item of photoConfigs; let i = index" [attr.data-index]="i" class="col-6">
+      <div [class]="borderColor(item.obligatoria)" style="max-width:100%; height:auto; min-height: 9.1em;z-index: 0 !important;" class="mx-1 border-radius-6 in_center"
+        (click)="showPositionDialog('bottom', item.archivo, i, inspeccionDTO.tv)">
+        <p-card [style]="{'box-shadow':'none', 'background':'none'}">
+          <div class="flex align-items-center justify-content-center" style="min-height: 9.1em;">
+            <div style="width:100% !important;padding:5px;position:relative;">
+              <div *ngIf="inspeccionDTO.inspeccion.vehiculo.fotos[i]" >
+                <img [style]="{'width':'100%','box-shadow':'none','background':'none','object-fit':'cover', 'border-radius':'5px', 'max-height': '100px'}" [src]="getAsSafeUrlImage(i)"
+                class="text-blue-700">
+              </div>
+              <div *ngIf="inspeccionDTO.inspeccion.vehiculo.fotos[i]" style="position:absolute;top:1px;right:1px;padding:8px;margin:2px;z-index:99 !important;" (click)="deleteImage($event,i)">
+                <i class="pi pi-trash text-pink-600" style="background-color: rgba(255, 255, 255, 0.693);border-radius: 45px;padding:8px;"></i>
+              </div>
+              <div *ngIf="inspeccionDTO.inspeccion.vehiculo.fotos[i] == undefined">
+                  <i class="pi pi-camera text-blue-700" style="font-size: 3rem;"></i>
+              </div>
+              <div style="font-weight: 400;" class="pt-2 pb-1">{{item.etiqueta}}</div>
+            </div>
+          </div>
+         </p-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-content-center flex-wrap card-container yellow-container mt-5">
+    <div class="flex align-items-center justify-content-center text-pink-500">
+      <span class="circle"></span>
+    </div>
+    <div class="flex align-items-center justify-content-center ml-2 text-pink-500">Fotos obligatorias</div>
+  </div>
+
+  <div class="text-center">
+    <button pButton pRipple label="Continuar" icon="pi pi-chevron-circle-right" iconPos="right"
+      class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 mt-7" (click)="nextPage()">
+    </button>
+  </div>
+</div>
+
+<p-dialog header="Imagen orientativa" [(visible)]="displayPosition" [position]="position" [modal]="true"
+[style]="{'width': '100%', 'max-height': '97%'}" [draggable]="false" [resizable]="false">
+  <p-image [src]="indicativePictureByArchivo" alt="imagen orientativa" width="320"></p-image>
+  <ng-template pTemplate="footer">
+    <!-- <input type="file" accept="image/*;capture=camera" pButton placeholder="Entendido"
+    class="p-button-raised bg-white mt-2 text-blue-700"
+    (click)="uploadAndResize(indexSettingPhoto, titlePhoto)"/> -->
+    <!-- <input pButton type="file" accept="image/*;capture=camera"  placeholder="Entendido"
+    class="p-button-raised bg-white mt-2 text-blue-700"
+    (change)="uploadAndResize(indexSettingPhoto, titlePhoto)"/> -->
+    <button pButton pRipple label="Entendido" type="file" accept="image/*;capture=camera"
+      class="p-button-raised bg-white mt-2 text-blue-700" (click)="uploadAndResize(indexSettingPhoto, titlePhoto)">
+    </button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="displaySendingIP" [dismissableMask]="false" [closable]="false" [modal]="true">
+  <div>
+      <div class="text-2xl text-blue-600 mb-3 font-medium text-center">Enviando inspección</div>
+      <div class="text-center">
+          <p-progressSpinner></p-progressSpinner>
+      </div>
+  </div>
+</p-dialog>
+
+<p-confirmDialog key="locationConfirmDialog" (onHide)="getLocation()"></p-confirmDialog>

@@ -1,0 +1,249 @@
+<h1 class="p-m-0" style="color: #495057;">{{formTitle}} Aseguradora</h1>
+
+<div class="p-fluid grid">
+    <div class="p-field col-6">
+        <label for="aseguradora">Nombre</label>
+        <input id="aseguradora" [(ngModel)]="aseguradora.nombre" type="text" pInputText>
+    </div>
+    <div class="p-field col-6">
+      <label for="alias">Alias</label>
+      <input id="alias" [(ngModel)]="aseguradora.alias" type="text" pInputText>
+    </div>
+    <div class="p-field col-6">
+      <label for="email">Email</label>
+      <input id="email" [(ngModel)]="aseguradora.email" type="text" pInputText>
+    </div>
+    <div class="p-field col-6">
+      <label for="alias">Vence</label>
+      <input id="alias" [(ngModel)]="aseguradora.vence" type="text" pInputText>
+    </div>
+
+    <div class="formgroup-inline col-12 my-3">
+      <div class="p-field col-2">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" [(ngModel)]="aseguradora.barbara" id="barbara" class="p-checkbox p-checkbox-box">
+          <label for="barbara">Bárbara</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" id="previas" [(ngModel)]="aseguradora.previas" class="p-checkbox p-checkbox-box">
+          <label for="previas">Previas</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" id="terceros" [(ngModel)]="aseguradora.terceros" class="p-checkbox p-checkbox-box">
+          <label for="terceros">Terceros</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" id="asegurados" [(ngModel)]="aseguradora.asegurados" class="p-checkbox p-checkbox-box">
+          <label for="asegurados">Asegurados</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" id="consultas_publicas" [(ngModel)]="aseguradora.consultas_publicas" class="p-checkbox p-checkbox-box">
+          <label for="consultas_publicas">Consultas Públicas</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox ml-3">
+          <input type="checkbox" id="activa" [(ngModel)]="aseguradora.activa" class="p-checkbox p-checkbox-box">
+          <label for="activa">Activa</label>
+        </div>
+      </div>
+      <!--<div class="p-field col-1 center">
+        <div class="field-checkbox ml-5">
+          <input type="checkbox" id="ddjj"  class="p-checkbox p-checkbox-box">
+          <label for="ddjj">DDJJ</label>
+        </div>
+      </div> -->
+    </div>
+</div>
+
+<div class="p-field col">
+  <button pButton pRipple type="button" class="p-element p-component mr-2 mr-0 h-3rem w-6rem p-button-warning text-white" label="Nuevo">
+    <span class="pi pi-plus" aria-hidden="true"></span>
+  </button>
+  <button pButton pRipple type="button" class="p-element p-component ml-2 h-3rem w-7rem p-button-info" label="Buscar">
+    <span class="pi pi-search" aria-hidden="true"></span>
+  </button>
+</div>
+<div class="tabla my-3">
+  <p-table #tablaConfigApp [value]="configApps"
+      responsiveLayout="scroll" selectionMode="single"
+      [lazy]="true"
+      [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+      [showCurrentPageReport]="true" [totalRecords]="totalRecords"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+      [resizableColumns]="true" columnResizeMode="expand">
+
+      <ng-template pTemplate="header">
+          <tr>
+            <th class="th_center" pSortableColumn="aseguradora">Aseguradora<p-sortIcon field="aseguradora"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="accesorio1">Accesorio 1<p-sortIcon field="accesorio1"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="accesorio2">Accesorio 2<p-sortIcon field="accesorio2"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="accesorio3">Accesorio 3<p-sortIcon field="accesorio3"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="accesorio4">Accesorio 4<p-sortIcon field="accesorio4"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="accesorio5">Accesorio 5<p-sortIcon field="accesorio5"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="obliga_geo">Obliga GEO<p-sortIcon field="obliga_geo"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="permite_desktop">Desktop<p-sortIcon field="permite_desktop"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="permite_galeria">Foto Galería PROD<p-sortIcon field="permite_galeria"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="permite_galeria_ddjj">Foto Galería DDJJ<p-sortIcon field="permite_galeria_ddjj"></p-sortIcon></th>
+            <th class="th_center" pSortableColumn="coberturas">Coberturas<p-sortIcon field="coberturas"></p-sortIcon></th>
+            <th class="th_center">Operaciones</th>
+          </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-configApp>
+          <tr>
+              <td class="td_center">{{ configApp.aseguradora }} </td>
+              <td class="td_center">
+                <div class="field-checkbox ml-5">
+                  <input type="checkbox" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.accesorio1">
+                </div>
+              </td>
+              <td class="td_center">
+                 <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="accesorio2" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.accesorio2">
+                </div>
+              </td>
+              <td class="td_center">
+                <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="accesorio3" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.accesorio3">
+                </div>
+              </td>
+              <td class="td_center">
+                 <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="accesorio4" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.accesorio4">
+                </div>
+              </td>
+              <td class="td_center">
+                <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="accesorio5" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.accesorio5">
+                </div>
+              </td>
+
+              <td class="td_center">
+                <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="obliga_geo" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.obliga_geo">
+                </div>
+              </td>
+              <td class="td_center">
+                 <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="permite_desktop" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.permite_desktop">
+                </div>
+              </td>
+              <td class="td_center">
+                 <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="permite_galeria" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.permite_galeria">
+                </div>
+              </td>
+              <td class="td_center">
+                 <div class="field-checkbox ml-5">
+                  <input type="checkbox" id="permite_galeria_ddjj" class="p-checkbox p-checkbox-box" [(ngModel)]="configApp.permite_galeria_ddjj">
+                </div>
+              </td>
+              <td class="td_center">{{ configApp.coberturas }}</td>
+              <td class="td_center">
+                  <div class="operation-buttons">
+                      <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-mr-2" (click)="editarConfigApp(configApp.id)"></button>
+                  </div>
+              </td>
+
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+<div class="surface-card p-4 shadow-2 border-round" *ngIf="configApp.id>0">
+  <div class="card">
+    <div class="p-fluid grid ">
+      <div class="p-field col-3">
+          <label for="txtAseguradora" >Aseguradora</label>
+          <input id="txtAseguradora" [(ngModel)]="configApp.aseguradora" type="text" pInputText>
+      </div>
+       <div class="p-field col-3">
+        <label for="txtCoberturas">Coberturas</label>
+        <input id="txtCoberturas" [(ngModel)]="configApp.coberturas" type="text" pInputText>
+      </div>
+       <div class="p-field col-1 center">
+        <div class="field-checkbox mx-3 my-5">
+          <input type="checkbox" id="activo" [(ngModel)]="configApp.activo" class="p-checkbox p-checkbox-box">
+            <label for="activo">Activo</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox mx-3 my-5">
+          <input type="checkbox" id="txtObligaGeo" [(ngModel)]="configApp.obliga_geo" class="p-checkbox p-checkbox-box">
+          <label for="txtObligaGeo">Obliga Geo</label>
+        </div>
+      </div>
+      <div class="p-field col-1 center">
+        <div class="field-checkbox mx-3 my-5">
+          <input type="checkbox" id="txtDesktop" [(ngModel)]="configApp.permite_desktop" class="p-checkbox p-checkbox-box">
+          <label for="txtDesktop">Desktop</label>
+        </div>
+      </div>
+      <div class="p-field col-2 center">
+        <div class="field-checkbox mx-3 my-5">
+          <input type="checkbox" id="txtFotoGaleriaProd" [(ngModel)]="configApp.permite_galeria" class="p-checkbox p-checkbox-box">
+          <label for="txtFotoGaleriaProd">Foto Galería Prod</label>
+        </div>
+      </div>
+      <div class="formgroup-inline col-12">
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtFotoGaleriaDDJJ" [(ngModel)]="configApp.permite_galeria_ddjj" class="p-checkbox p-checkbox-box">
+            <label for="txtFotoGaleriaDDJJ">Foto Galería DDJJ</label>
+          </div>
+        </div>
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtAccesorio1" [(ngModel)]="configApp.accesorio1" class="p-checkbox p-checkbox-box">
+            <label for="txtAccesorio1">Accesorio 1</label>
+          </div>
+        </div>
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtAccesorio2" [(ngModel)]="configApp.accesorio2"  class="p-checkbox p-checkbox-box">
+            <label for="txtAccesorio2">Accesorio 2</label>
+          </div>
+        </div>
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtAccesorio3" [(ngModel)]="configApp.accesorio3" class="p-checkbox p-checkbox-box">
+            <label for="txtAccesorio3">Accesorio 3</label>
+          </div>
+        </div>
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtAccesorio3" [(ngModel)]="configApp.accesorio4" class="p-checkbox p-checkbox-box">
+            <label for="txtAccesorio4">Accesorio 4</label>
+          </div>
+        </div>
+        <div class="p-field col-2 center">
+          <div class="field-checkbox my-3">
+            <input type="checkbox" id="txtAccesorio5" [(ngModel)]="configApp.accesorio5" class="p-checkbox p-checkbox-box">
+            <label for="txtAccesorio5">Accesorio 5</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-fluid grid col-12 flex justify-content-center flex-wrap mt-3">
+        <button pButton pRipple type="button" label="Actualizar" icon="pi pi-refresh" class="p-button-info p-element p-component w-8rem h-3rem p-button-raised ml-2"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="p-fluid grid col-12 flex justify-content-end flex-wrap my-3">
+  <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" class="p-button-danger p-element p-mr-3 p-component w-7rem h-3rem p-button-raised ml-2" routerLink="/aseguradoras"></button>
+  <button pButton pRipple type="button" label="Guardar" icon="pi pi-check" class="p-button-primary p-element  p-component w-7rem h-3rem p-button-raised ml-2" (click)="saveAseguradora(aseguradora)" ></button>
+</div>
+
+

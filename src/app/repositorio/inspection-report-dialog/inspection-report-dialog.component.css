@@ -1,0 +1,44 @@
+.marca {
+    text-transform: uppercase;
+}
+
+.filtros-repo {
+    margin-bottom: 20px !important;
+}
+
+.nav {
+    padding: 20px;
+}
+
+
+
+.dominio {
+    font-weight: 500 !important;
+}
+
+td,
+th {
+    font-size: 10pt !important;
+    cursor: default;
+}
+
+.mat-column-aseguradoraNombre,
+.asegurado-nombre {
+    text-transform: uppercase;
+}
+
+.column-reinspeccion {
+    padding: 0 20px;
+    text-align: center;
+}
+
+.column-cant-avisos span {
+    margin: 0 10px;
+    text-align: center;
+
+}
+
+.download-row {
+    width: 100%;
+    text-align: end;
+}

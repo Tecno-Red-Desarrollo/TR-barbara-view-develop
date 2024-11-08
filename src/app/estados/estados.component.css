@@ -1,0 +1,44 @@
+.p-field>label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.p-field>input {
+    margin-bottom: 1rem;
+}
+
+.p-input-icon-left, .p-input-icon-right {
+    position: relative;
+    float: right;
+    margin-top: -4rem;
+}
+
+button {
+    margin-right: 0.7rem;
+}
+
+td, th {
+    font-size: 10pt !important;
+}
+
+.p-button.p-button-icon-only.p-button-rounded {
+    height: 2.2rem;
+    width: 2.2rem;
+}
+
+
+.icons_estado, .th_center, .td_center {
+    text-align: center!important;
+}
+
+.text-color-green {
+    color: var(--green-500);
+}
+
+.text-color-red {
+    color: var(--pink-500);
+}
+
+td span i {
+    font-size: 1.2rem;
+}

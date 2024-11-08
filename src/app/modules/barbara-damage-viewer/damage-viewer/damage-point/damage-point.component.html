@@ -1,0 +1,4 @@
+<svg *ngIf="!(xCord===0 && yCord ===0)" height="16" width="16" [attr.x]="xCord" [attr.y]="yCord">
+    <circle cx="8" cy="8" r="8px" [attr.fill]="getSeverityColor()" />
+    <text *ngIf="damagesCount" x="5.5" y="10" [attr.fill]="getSeverityTextColor()" font-size="9" font-family="Arial">{{damagesCount}}</text>
+</svg>

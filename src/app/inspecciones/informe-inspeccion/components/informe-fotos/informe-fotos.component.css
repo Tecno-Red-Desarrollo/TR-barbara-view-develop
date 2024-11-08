@@ -1,0 +1,75 @@
+.img-thumbnail {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px !important;
+    object-fit: cover;
+    -o-object-fit: cover;
+    padding: 4px;
+}
+
+.img-thumbnail-container {
+    text-align: center;
+}
+
+.img-thumbnail-reinspection {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px !important;
+    border-color: rgb(237, 139, 100) !important;
+    border-width: 3px !important;
+    border-style: solid;
+    object-fit: cover;
+    -o-object-fit: cover;
+
+}
+
+.img-label {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.photos-card .p-card .p-card-body {
+    padding: 0 !important;
+}
+
+.photos-card .p-card-content {
+    padding: 30px 0 0 0 !important;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background-color: #01579B;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background: rgb(95, 95, 223) !important;
+}
+
+.photo-with-error {
+    position: absolute;
+    display: flex;
+    z-index: 10 !important;
+    top:-2px;
+    right: 2px;
+    cursor: help;
+}
+
+.alert-icon {
+    text-align: center;
+    font-weight: bold;
+    padding: 3px !important;
+    width: 25px !important;
+    height: 25px !important;
+    color: white !important;
+    background-color: #e64848;
+    border-radius: 45px !important;
+}
+
+@media only screen and (max-width: 480px) {
+    .img-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}

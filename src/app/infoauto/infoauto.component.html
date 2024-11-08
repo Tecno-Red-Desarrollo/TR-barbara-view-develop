@@ -1,0 +1,82 @@
+<div class="grid">
+
+    <div class="p-fluid grid col-9">
+        <div class="p-field col">
+            <span class="p-float-label">
+                <p-dropdown inputId="marcaDropdown" [options]="marcas" [(ngModel)]="marca" [filter]="true" [filterBy]="marca"
+                    (onChange)="onChangeMarcaModeloAnio()" class="p-inputtext-sm">
+                  <div>{{marca}}</div>
+                </p-dropdown>
+                <label for="marcaDropdown">Marca</label>
+            </span>
+        </div>
+
+        <div class="p-field col">
+            <span class="p-float-label">
+                <p-dropdown inputId="modeloDropdown" [options]="modelos" [(ngModel)]="modelo" optionLabel="modelo"
+                    optionDisabled="inactive" class="p-inputtext-sm">
+                </p-dropdown>
+                <label for="modeloDropdown">Modelo</label>
+            </span>
+        </div>
+
+        <div class="p-field col">
+            <span class="p-float-label">
+                <input inputId="anioInput" pInputText [(ngModel)]="anio" name="anio" (blur)="onChangeMarcaModeloAnio()"
+                    class="p-inputtext-sm" />
+                <label for="anioInput">Año</label>
+            </span>
+        </div>
+    </div>
+
+
+
+    <div class="p-field col">
+        <button pButton type="button" icon="pi pi-plus" iconPos="left" (click)="newInfoAuto()" label="Nuevo" class="p-button-rounded"></button>
+    </div>
+
+</div>
+
+
+
+<div class="tabla-ia">
+    <p-table [value]="infoauto" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="id">Id. <p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="codia">CODIA<p-sortIcon field="codia"></p-sortIcon></th>
+              <th pSortableColumn="marca">Marca<p-sortIcon field="marca"></p-sortIcon></th>
+              <th pSortableColumn="modelo">Modelo<p-sortIcon field="modelo"></p-sortIcon></th>
+              <th pSortableColumn="modeloTecno">Modelo Tecno<p-sortIcon field="modeloTecno"></p-sortIcon></th>
+              <th pSortableColumn="ani">Año<p-sortIcon field="anio"></p-sortIcon></th>
+              <th pSortableColumn="precio">Precio<p-sortIcon field="precio"></p-sortIcon></th>
+              <th></th>
+              <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-infoautoRow>
+            <tr>
+                <td> {{infoautoRow.id}} </td>
+                <td> {{infoautoRow.codigo}} </td>
+                <td> {{infoautoRow.marca}} </td>
+                <td> {{infoautoRow.modelo}} </td>
+                <td> {{infoautoRow.modelo_tecno}} </td>
+
+                <td> {{infoautoRow.anio}} </td>
+                <td> ${{infoautoRow.precio * 1000}} </td>
+                <td>
+                    <span class="material-icons" (click)="editInfoAuto(infoautoRow)">
+                        edit
+                    </span>
+                </td>
+                <td>
+                    <span class="material-icons" (click)="deleteInfoAuto(infoautoRow)">
+                        delete
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -1,0 +1,5 @@
+export enum Channel {
+  CANAL_0 = 0,  // SELECCIÓN DE CANAL
+  CANAL_3 = 3,  // DIGITAL PARA PRODUCTOS
+  CANAL_4 = 4   // DIGITAL PARA ASEGURADO DDJJ
+}

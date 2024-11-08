@@ -1,0 +1,54 @@
+<h3>Búsqueda de antecedentes</h3>
+<form [formGroup]="findHistoryForm" (ngSubmit)="onFindHistoryFormSubmit()">
+    <div class="flex">
+        <div class="p-inputgroup">
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Dominio" formControlName="dominio" />
+            <p-button icon="pi pi-search" type="submit"></p-button>
+        </div>
+    </div>
+</form>
+
+
+<p-table *ngIf="history.length > 0" [value]="history" [(selection)]="selectedAntecedente" [scrollable]="true"
+    (onRowSelect)="linkInspectionToApprasial()" (onRowUnselect)="unlinkInspectionToApprasial()" scrollHeight="flex"
+    [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Fecha</th>
+            <th>Dominio</th>
+            <th>Apellido, Nombre</th>
+            <th>Cobertura</th>
+            <th>Asociar</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-inspection>
+        <tr>
+            <td>{{inspection.fecha | date:'dd/MM/YYYY HH:mm'}}</td>
+            <td>{{inspection.dominio}}</td>
+            <td>{{(inspection.InspeccionVarios?.titular_apellido || '') + ' ' +
+                (inspection.InspeccionVarios?.titular_nombre || '') }}</td>
+            <td>{{inspection.cobertura}}</td>
+            <td>
+                <p-tableRadioButton [value]="inspection"></p-tableRadioButton>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<div #autoperitacionAsegurado>
+    <h3 id="autoperitacionAseguradoForm">Envio de autoperitación asegurado</h3>
+    <form [formGroup]="newApprasialForm" (ngSubmit)="onNewApprasialFormSubmit()">
+        <div class="flex flex-auto gap-3 ">
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Nombre" formControlName="nombre"
+                required />
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Apellido" formControlName="apellido"
+                required />
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Dominio" formControlName="dominio"
+                required />
+            <input pInputText type="text" class="p-inputtext-sm" placeholder="Nro.siniestro"
+                formControlName="nro_siniestro" required />
+            <input pInputText type="email" class="p-inputtext-sm flex-grow-1" placeholder="Email"
+                formControlName="email" required />
+            <p-button label="Enviar" icon="pi pi-send" type="submit" [disabled]="!newApprasialForm.valid"></p-button>
+        </div>
+    </form>
+</div>

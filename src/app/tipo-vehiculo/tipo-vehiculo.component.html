@@ -1,0 +1,87 @@
+<p-toast></p-toast>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+
+      <button pButton pRipple class="p-element p-mr-3 p-component p-button-rounded h-3rem w-7rem p-button-success p-button-raised" label="Nuevo" (click)="newTipoVehiculo()">
+        <span class="pi pi-plus" aria-hidden="true"></span>
+      </button>
+
+    </ng-template>
+  </p-toolbar>
+  <p-table #tablaModelo selectionMode="single" [value]="tiposVehiculo" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]"
+           [globalFilterFields]="['nombre','marca']" [resizableColumns]="true" columnResizeMode="expand">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0 title-datatable">TIPOS DE VEHICULO</h5>
+        <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="tablaModelo.filterGlobal($any($event.target).value, 'contains')"
+                     placeholder="Buscar..."/>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">Id
+          <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">Nombre
+          <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombreInfoauto">Nombre de Infoauto
+          <p-sortIcon field="nombreInfoauto"></p-sortIcon>
+        </th>
+        <th>OPERACIONES</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tipoVehiculoRow>
+      <tr>
+        <td> {{tipoVehiculoRow.id}} </td>
+        <td> {{tipoVehiculoRow.nombre}} </td>
+        <td> {{tipoVehiculoRow.nombreInfoauto}} </td>
+        <td>
+          <button pButton pRipple class="p-button-rounded p-button-warning p-button p-button-icon-only" (click)="edit(tipoVehiculoRow)">
+              <span class="material-icons" [ngStyle]="{ color: '#fff' }">
+               edit
+              </span>
+          </button>
+          <button pButton pRipple class="p-button-rounded p-button-danger p-button p-button-icon-only ml-2" (click)="delete(tipoVehiculoRow)">
+            <span class="material-icons">
+              delete
+            </span>
+          </button>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="dialog" header="{{addOrUpdate}} TIPO DE VEHICULO" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field" *ngIf="tipoVehiculo.id>0">
+      <label for="id">ID</label>
+      <input type="text" pInputText id="id" [(ngModel)]="tipoVehiculo.id" disabled/>
+    </div>
+    <div class="p-field">
+      <label for="nombre">NOMBRE</label>
+      <input type="text" pInputText id="nombre" [(ngModel)]="tipoVehiculo.nombre"/>
+      <small class="p-error" *ngIf="submitted && !tipoVehiculo.nombre">Campo requerido</small>
+    </div>
+    <div class="p-field">
+      <label for="nombreInfoauto">NOMBRE INFOAUTO</label>
+      <input type="text" pInputText id="nombreInfoauto" [(ngModel)]="tipoVehiculo.nombreInfoAuto"/>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="save(tipoVehiculo)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

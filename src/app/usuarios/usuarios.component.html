@@ -1,0 +1,104 @@
+<p-toast></p-toast>
+<h1 style="color: grey">Usuarios</h1>
+  <div class="grid">
+    <div class="p-fluid grid col-12">
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left my-0">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText inputId="apellido" />
+            <label for="apellido">Apellido</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <label for="lugar_nombre">Taller</label>
+            <p-dropdown [options]="talleres" [virtualScroll]="true" [itemSize]="10" [filter]="true" [(ngModel)]="selectedTaller" optionvValue="id" optionLabel="taller" placeholder="Seleccione..."></p-dropdown>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left my-0">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText inputId="usuario"/>
+            <label for="usuario">Usuario/Email</label>
+        </span>
+      </div>
+     <div class="p-field col">
+        <span class="p-float-label">
+          <p-dropdown [options]="aseguradoras" [(ngModel)]="selectedAseguradora" optionLabel="nombre" [showClear]="true" placeholder="Aseguradora"></p-dropdown>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-dropdown [options]="roles" [(ngModel)]="selectedRol" optionLabel="rol" [showClear]="true" placeholder="Rol"></p-dropdown>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-dropdown [options]="activo" [(ngModel)]="selectedActivo" optionLabel="activo" [showClear]="true" placeholder="Activo"></p-dropdown>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-dropdown [options]="mobiles" [(ngModel)]="selectedMobile" optionLabel="alta_mobile" [showClear]="true" placeholder="Alta Mobile"></p-dropdown>
+        </span>
+      </div>
+      <div class="p-field col">
+          <button pButton pRipple type="button" class="p-element p-component mr-2 h-3rem w-6rem p-button-info" label="Buscar">
+            <span class="pi pi-search" aria-hidden="true"></span>
+          </button>
+          <button pButton pRipple type="button" class="p-element p-component ml-2 mr-0 h-3rem w-6rem p-button-success" label="Nuevo" routerLink="usuario">
+            <span class="pi pi-plus" aria-hidden="true"></span>
+          </button>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <div class="card mb-4">
+      <p-table #tablaUsuarios selectionMode="single" styleClass="p-datatable-striped" [value]="usuarios" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]"
+           [globalFilterFields]="['nombre','apellido']" [resizableColumns]="true" columnResizeMode="expand">
+          <ng-template pTemplate="header">
+            <tr>
+
+              <th pSortableColumn="id" class="th-center">Id<p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="usuario" class="th-center">Usuario<p-sortIcon field="usuario"></p-sortIcon></th>
+              <th pSortableColumn="nombre" class="th-center">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+              <th pSortableColumn="apellido" class="th-center">Apellido<p-sortIcon field="apellido"></p-sortIcon></th>
+              <th pSortableColumn="email" class="th-center">Email<p-sortIcon field="email"></p-sortIcon></th>
+              <th pSortableColumn="provincia" class="th-center">Provincia<p-sortIcon field="provincia"></p-sortIcon></th>
+              <th pSortableColumn="localidad" class="th-center">Localidad<p-sortIcon field="localidad"></p-sortIcon></th>
+              <th pSortableColumn="taller" class="th-center">Taller<p-sortIcon field="taller"></p-sortIcon></th>
+              <th pSortableColumn="rol_nombre" class="th-center">Rol<p-sortIcon field="rol_nombre"></p-sortIcon></th>
+              <th pSortableColumn="audita" class="th-center">Audita<p-sortIcon field="audita"></p-sortIcon></th>
+              <th pSortableColumn="activo" class="th-center">Activo<p-sortIcon field="activo"></p-sortIcon></th>
+              <th pSortableColumn="reset_pass" class="th-center">Reset<p-sortIcon field="reset_pass"></p-sortIcon></th>
+              <th>Operaciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-usuario>
+            <tr>
+              <td> {{ usuario.id }} </td>
+              <td> {{ usuario.usuario }} </td>
+              <td> {{ usuario.nombre }} </td>
+              <td> {{ usuario.apellido }} </td>
+              <td> {{ usuario.email }} </td>
+              <td> {{ usuario.provincia_id }} </td>
+              <td> {{ usuario.localidad }} </td>
+              <td> {{ usuario.taller }} </td>
+              <td> {{ usuario.rol_nombre }} </td>
+              <td class="td_center"> <i [class]="iconActive(usuario.audita)" ></i></td>
+              <td class="td_center"> <i [class]="iconActive(usuario.activo)" ></i></td>
+              <td class="td_center">
+                <i [class]="iconReset(usuario.reset_pass)" ></i>
+              </td>
+              <td class="td_center">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editar(usuario)"></button>
+              </td>
+            </tr>
+          </ng-template>
+      </p-table>
+    </div>
+  </div>
+

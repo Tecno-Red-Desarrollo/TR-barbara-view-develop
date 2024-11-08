@@ -1,0 +1,42 @@
+<div class="ver-container">
+    <img src="./assets/images/logoVER.png" class="logo-ver" alt="">
+    <h1 class="text-ver">
+        <span *ngIf="!isVERwithObject() else verWithDigits">{{VER}}</span>
+        <ng-template #verWithDigits>
+            <span [ngClass]="getDigitClass('anio')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Año">{{VERobject.anio}}</span>
+            <span [ngClass]="getDigitClass('uso')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Uso">{{VERobject.uso}}</span>
+            |
+            <span [ngClass]="getDigitClass('casco')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Casco">{{VERobject.casco}}</span>
+            <span [ngClass]="getDigitClass('luces')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Luces">{{VERobject.luces}}</span>
+            <span [ngClass]="getDigitClass('cristales')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Cristales">{{VERobject.cristales}}</span>
+            <span [ngClass]="getDigitClass('cubiertas')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Cubiertas">{{VERobject.cubiertas}}</span>
+            <span [ngClass]="getDigitClass('identificacion')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Identificación">{{VERobject.identificacion}}</span>
+            <span [ngClass]="getDigitClass('seguridad')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Exposición">{{VERobject.seguridad}}</span>
+            |
+            <span [ngClass]="getDigitClass('combustible')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Combustible">{{VERobject.combustible}}</span>
+              <span [ngClass]="getDigitClass('vehiculo')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Vehículo">{{VERobject.vehiculo}}</span>
+            |
+<!--            <span [ngClass]="getDigitClass('inspecciono')" [tooltipPosition]="'top'" tooltipEvent="hover"-->
+<!--                pTooltip="Inspeccionó">{{VERobject.inspecciono}}</span>-->
+            <span [ngClass]="getDigitClass('fotos')" [tooltipPosition]="'top'" tooltipEvent="hover"
+                pTooltip="Fotos">{{VERobject.fotos}}</span>
+<!--            <span [ngClass]="getDigitClass('pais')" [tooltipPosition]="'top'" tooltipEvent="hover"-->
+<!--                pTooltip="País">{{VERobject.pais}}</span>-->
+<!--            <span [ngClass]="getDigitClass('depreciacion')" [tooltipPosition]="'top'" tooltipEvent="hover"-->
+<!--                pTooltip="Depreciación">{{VERobject.depreciacion}}</span>-->
+<!--            <span [ngClass]="getDigitClass('audito')" [tooltipPosition]="'top'" tooltipEvent="hover"-->
+<!--                pTooltip="Auditó">{{VERobject.audito}}</span>-->
+        </ng-template>
+
+    </h1>
+</div>

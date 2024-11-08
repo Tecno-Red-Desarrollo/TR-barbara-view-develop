@@ -1,0 +1,38 @@
+<p-galleria [value]="images" [(visible)]="displayCustom" [(activeIndex)]="activePhotoIndex"
+    [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-height':'100%'}" [numVisible]="7"
+    thumbnailsPosition="top" [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
+    <ng-template pTemplate="item" let-item>
+        <p-image [src]="item.verifeyePhoto || apiHost +'api/foto/getPhotoWithDamagesBoxes/'+item.id" alt="Image"
+            [imageStyle]="{'max-height':'80vh','max-width':'100%'}" [preview]="true">
+        </p-image>
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.verifeyePhoto || apiHost +'api/foto/getPhotoWithDamagesBoxes/'+item.id"
+                style="display: block;" />
+        </div>
+    </ng-template>
+</p-galleria>
+
+<p-carousel *ngIf="images" [value]="images" [numVisible]="4" [numScroll]="3"
+    [responsiveOptions]="carouselResponsiveOptions">
+    <ng-template let-inspectionImage pTemplate="item">
+        <div style="display:flex;align-items:center;flex-direction: column;">
+            <img [src]="inspectionImage.verifeyePhoto || apiHost +'api/foto/getPhotoWithDamagesBoxes/'+inspectionImage.id"
+                 [ngClass]="{'img-thumbnail-reinspection': hasClass(inspectionImage.Etiqueta.nombre_archivo), 'img-thumbnail': !hasClass(inspectionImage.Etiqueta.nombre_archivo)}"
+                style="cursor: pointer" (click)="openPhotoById(inspectionImage.id)" />
+            <div class="img-label">{{inspectionImage.Etiqueta.nombre}}</div>
+        </div>
+    </ng-template>
+</p-carousel>
+
+
+<!--
+<div *ngIf="images" class="grid image-grid" style="width: 100%;">
+    <div *ngFor="let image of images; let index = index;" class="lg:col-2 img-thumbnail-container md:col-2 sm:col-6"
+        key="index">
+        <img [src]="apiHost +'api/foto/getPhotoWithDamagesBoxesById/'+image.id" class="img-thumbnail "
+            style="cursor: pointer" (click)="imageClick(index)" />
+        <div class="img-label">{{image.Etiqueta.nombre}}</div>
+    </div>
+</div> -->

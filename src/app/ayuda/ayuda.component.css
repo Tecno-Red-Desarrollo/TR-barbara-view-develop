@@ -1,0 +1,37 @@
+
+.azul {
+  background-color: darkblue;
+}
+
+.gris {
+  background-color: #eee;
+}
+
+.p-shadow-3 {
+  box-shadow: 0 3px 3px -2px #0003, 0 3px 4px #00000024, 0 1px 8px #0000001f;
+}
+
+p-menubar {
+  border: none !important;
+}
+
+.pi {
+  font-size: 3rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+

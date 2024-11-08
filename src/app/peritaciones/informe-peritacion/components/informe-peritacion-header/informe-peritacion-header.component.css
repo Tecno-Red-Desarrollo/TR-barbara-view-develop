@@ -1,0 +1,97 @@
+.grid {
+    width: 100% !important;
+  }
+  
+  .text-dominio {
+    font-size: 24px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .text-tipo-vehiculo {
+    margin-bottom: 4px !important;
+  }
+  
+  .vehicle-detail {
+    font-size: 14px;
+    line-height: 1.1;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    color: rgb(89, 89, 89);
+  }
+  
+  .vehicle-detail p {
+    margin: 0;
+  }
+  
+  .marca-modelo-container {
+    line-height: 1.1;
+    font-size: 14.5px;
+    font-weight: 700;
+    display: flex;
+    text-align: start;
+    color: rgb(89, 89, 89);
+    margin-bottom: 5px;
+  }
+  
+  .marca-modelo-container p {
+    padding: 0 !important;
+    margin: auto !important;
+  }
+  
+  
+  .card-header .p-card-content {
+    padding: 0.75rem 20px !important;
+  }
+  
+  
+  .secondary-info brb-p-tag {
+    margin-right: 4px;
+  }
+  
+  .ver-obs {
+    text-align: right;
+    line-height: 1.1;
+  }
+  
+  .ver-obs p {
+    font-size: 14px;
+  }
+  
+  .depreciation {
+    padding-top: 5px;
+  }
+  
+  .cobertura-description {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(89, 89, 89);
+  }
+  
+  @media only screen and (max-width: 480px) {
+  
+    /* Estilos específicos para dispositivos móviles */
+    .header-item {
+      width: 100% !important;
+      text-align: center !important;
+    }
+  
+    .vehicle-detail {
+      align-items: center;
+    }
+  
+    .marca-modelo-container {
+      align-items: center !important;
+      justify-content: center;
+    }
+  
+    .ver-obs {
+      margin-top: 20px;
+    }
+  
+  }
+  

@@ -1,0 +1,22 @@
+.d-inline-flex {
+    display: inline-grid;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+.in_center {
+    text-align: center;
+    place-content: center;
+}
+
+.background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50%;   
+    background-color: #9ac2b0;
+    z-index: -1;
+}

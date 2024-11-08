@@ -1,0 +1,75 @@
+.button {
+  color: white;
+  background-color: blue;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+ul.links {
+  padding-bottom: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.center_button_confirm {
+  margin-top: 220px;
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  /* background: #383838; */
+  /* height: 100vh; */
+  align-items: center;
+  justify-content: center;
+  /* inexplicable/unknown extra space is rendered, causing scrollbars to show up */
+  overflow: hidden;
+}
+
+@viewport {
+  width: device-width;
+  }
+
+  ::ng-deep video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0px;
+  }
+
+
+  .mensaje {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
+    height: 3.75rem;
+    width: 3.75rem;
+  }
+
+  ::ng-deep .pi {
+    font-size: 1.5rem;
+  }
+
+  .borderCustom {
+    border: 2px solid!important;
+  }
+

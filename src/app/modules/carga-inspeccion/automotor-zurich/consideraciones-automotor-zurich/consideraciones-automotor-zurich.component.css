@@ -1,0 +1,8 @@
+::ng-deep body{
+    background-color: #d4ddd9 !important;
+    margin: 0px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}

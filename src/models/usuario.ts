@@ -1,0 +1,33 @@
+export interface Usuario {
+  id: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  provincia_id: number;
+  localidad_id: number;
+  taller: string;
+  usuario: string;
+  rol_id: number;
+  audita: boolean;
+  activo: boolean;
+  pass: string;
+  reset_pass: string;
+  cuit: string;
+  dni: string;
+  cp: string;
+  id_agenda: number;
+  puede_auditar: boolean;
+  aviso_prueba: boolean;
+  tipo1: boolean;
+  tipo2: boolean;
+  tipo3: boolean;
+  tipo4: boolean;
+  tipo5: boolean;
+  tipo6: boolean;
+  tipo7: boolean;
+  tipo8: boolean;
+  tipo9: boolean;
+  telefono: number;
+  codigo: string;
+  repo: boolean;
+}

@@ -1,0 +1,27 @@
+::ng-deep body{
+    --zurich-primary-dark-color:#3b517d;
+    --zurich-secondary-dark-color:#4d6487;
+    --zurich-primary-color:#2167ae;
+    --zurich-primary-light-color:#4c84bd;
+}
+
+
+.zurich-primary-dark-text{
+    color: var(--zurich-primary-dark-color)  !important;
+}
+
+.zurich-secondary-dark-text {
+    color: var(--zurich-secondary-dark-color)  !important;
+}
+
+.zurich-primary-text{
+    color: var(--zurich-primary-color) !important;
+}
+
+.zurich-primary-light-text{
+    color: var(--zurich-primary-light-color) !important;
+}
+
+.zurich-primary-button{
+    background-color: var(--zurich-primary-color) !important;
+}

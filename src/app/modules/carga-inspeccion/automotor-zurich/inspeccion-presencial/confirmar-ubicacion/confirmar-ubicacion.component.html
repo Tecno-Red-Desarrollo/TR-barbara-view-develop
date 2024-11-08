@@ -1,0 +1,59 @@
+<div class="py-2 px-2 md:px-8 text-blue-700">
+
+    <div class="text-blue-600 mb-3 font-medium text-2xl mb-1 md:align-content-start text-center">Ingresá el domicilio en el que querés realizar la inspección</div>
+
+    <div class="col-12 flex justify-content-center flex-wrap">
+        <div class="h-16rem ">
+            <div class="shadow-2 flex flex-column surface-card border-round px-3 py-3">
+                <div class="col-12">
+                    <div class="flex mb-3 pt-1 justify-content-center mx-4">
+                        <div class="grid">
+                            <div class="col-12 md:col-4">
+                                <span class="block mb-3">Código postal</span>
+                                <p-inputNumber [(ngModel)]="cp" [min]="0" [max]="9999" [format]="false" (onBlur)="getProvinciaLocalidadByCP()"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <span class="block mb-3">Provincia</span>
+                                <p-dropdown #provinceDropdown class="font-medium " [options]="provinces" [(ngModel)]="selectedProvince" optionLabel="nombre" [filter]="true" filterBy="nombre" [showClear]="true" id="provinceDrop" (onChange)="getLocalidadesByProvincia()"></p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <span class="block mb-3">Localidad</span>
+                                <p-dropdown #cityDropdown class="font-medium" [options]="cities" [(ngModel)]="selectedCity" [filter]="true" filterBy="lugar" [showClear]="true" optionLabel="lugar" (onChange)="getCPbyLocalidad()"></p-dropdown>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="flex pt-3 mb-3 text-blue-800 lg:justify-content-center">
+                        <div class="flex align-items-center" style="width:3rem;height:2rem">
+                            <i class="pi pi-map-marker text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="p-float-label">
+                                <input type="text" id="addressInput" class="block mb-1" [(ngModel)]="address" pInputText />
+                                <label for="addressInput">Dirección</label>
+                            </span>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="mt-4 lg:justify-content-center">Si alguno de estos datos no es correcto, antes de continuar comunícate con tu Productor Asesor o llamar al
+                        <b>0800-333-ZURICH (9874)</b>.
+                    </p>
+                </div>
+            </div>
+            <div class="text-center">
+                <button pButton pRipple label="Continuar" icon="pi pi-chevron-circle-right" iconPos="right" class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 mt-4" (click)="checkCobertura()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayCheckingCobertura" [dismissableMask]="false" [closable]="false" [modal]="true">
+    <div>
+        <div class="text-2xl text-blue-600 mb-3 font-medium text-center">Controlando cobertura</div>
+        <div class="text-center">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,28 @@
+
+.download-btn {
+    position: absolute;
+    z-index: 9999;
+}
+
+.vehicle {
+    padding: 0 !important;
+    width: 100%;
+}
+
+::ng-deep .viewer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100% !important;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .vehicle {
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+}

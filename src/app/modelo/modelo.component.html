@@ -1,0 +1,109 @@
+<p-toast></p-toast>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+
+      <button pButton pRipple class="p-element p-mr-3 p-component p-button-rounded h-3rem w-7rem p-button-success p-button-raised" label="Nuevo" (click)="newModelo()">
+        <span class="pi pi-plus" aria-hidden="true"></span>
+      </button>
+
+    </ng-template>
+  </p-toolbar>
+  <p-table #tablaModelo selectionMode="single" [value]="modelos" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]"
+           [globalFilterFields]="['nombre','marca']" [resizableColumns]="true" columnResizeMode="expand">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0 title-datatable">MODELOS</h5>
+        <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="tablaModelo.filterGlobal($any($event.target).value, 'contains')"
+                     placeholder="Buscar..."/>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">ID
+          <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">NOMBRE
+          <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombreInfoauto">NOMBRE INFOAUTO
+          <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="marca">MARCA
+          <p-sortIcon field="marca"></p-sortIcon>
+        </th>
+        <th pSortableColumn="marca">TIPO DE VEHICULO
+          <p-sortIcon field="tipoVehiculo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="precio">PRECIO
+          <p-sortIcon field="precio"></p-sortIcon>
+        </th>
+        <th>OPERACIONES</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-modeloRow>
+      <tr>
+        <td> {{modeloRow.id}} </td>
+        <td> {{modeloRow.nombre}} </td>
+        <td> {{modeloRow.nombreInfoauto}} </td>
+        <td> {{modeloRow.marca}} </td>
+        <td> {{modeloRow.tipoVehiculo}} </td>
+        <td> {{modeloRow.precio | currency:'USD'}} </td>
+        <td>
+          <button pButton pRipple class="p-button-rounded p-button-warning p-button p-button-icon-only" (click)="edit(modeloRow)">
+              <span class="material-icons" [ngStyle]="{ color: '#fff' }">
+               edit
+              </span>
+          </button>
+          <button pButton pRipple class="p-button-rounded p-button-danger p-button p-button-icon-only ml-2" (click)="delete(modeloRow)">
+            <span class="material-icons">
+              delete
+            </span>
+          </button>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="dialog" header="{{addOrUpdate}} MODELO" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field" *ngIf="modelo.id>0">
+      <label for="id">ID</label>
+      <input type="text" pInputText id="id" [(ngModel)]="modelo.id" disabled/>
+    </div>
+    <div class="p-field">
+      <label for="id">NOMBRE</label>
+      <input type="text" pInputText id="nombre" [(ngModel)]="modelo.nombre"/>
+      <small class="p-error" *ngIf="submitted && !modelo.nombre">Campo requerido</small>
+    </div>
+    <div class="p-field">
+      <label for="id">NOMBRE INFOAUTO</label>
+      <input type="text" pInputText id="alias" [(ngModel)]="modelo.nombreInfoauto"/>
+    </div>
+    <div class="p-field">
+      <label for="id">MARCA</label>
+      <input type="text" pInputText id="marca" [(ngModel)]="modelo.marca"/>
+      <small class="p-error" *ngIf="submitted && !modelo.marca">Campo requerido</small>
+    </div>
+    <div class="p-field">
+      <label for="id">PRECIO</label>
+      <p-inputNumber [(ngModel)]="modelo.precio" [minFractionDigits]="2"></p-inputNumber>
+      <small class="p-error" *ngIf="submitted && !modelo.precio">Campo requerido</small>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="save(modelo)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

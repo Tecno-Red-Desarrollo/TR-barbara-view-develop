@@ -1,0 +1,23 @@
+<p-overlayPanel #damagePhotoPreview>
+    <img [src]="currentDamagePhotoUrl" class="img-thumbnail" alt="damage" />
+</p-overlayPanel>
+<p-tree *ngIf="damagedPartsByGroups.length > 0" [value]="damagedPartsByGroups" class="w-full md:w-30rem"
+    [emptyMessage]="'Cargando...'">
+
+    <ng-template let-node pTemplate="grupo-ver">
+        <b style="font-size:1.2em" (click)="nodeClick(node)" style="cursor:pointer !important">{{ node.label
+            }}</b><p-badge class="ml-2 damage-count" [value]="node.damages_count"
+            [styleClass]="getStyleColor(node.major_severity_color)"></p-badge>
+    </ng-template>
+    <ng-template let-node pTemplate="default">
+        <b (click)="nodeClick(node)" style="cursor:pointer !important">{{ node.label }}</b>
+        <p-badge *ngIf="!node.expanded"
+            [value]="node.damages_count" class="ml-2 damage-count" [styleClass]="getStyleColor(node.major_severity_color)"></p-badge>
+    </ng-template>
+    <ng-template let-node pTemplate="danio">
+        <div class="flex danio-node" style="align-items:center !important;cursor:pointer;" (click)="onDamageClick(node.damage.analisisFoto)">
+            {{ node.label }}
+        </div>
+
+    </ng-template>
+</p-tree>

@@ -1,0 +1,18 @@
+
+<div class="text-blue-700 bicolor text-left">
+    <div class="py-5 px-3 md:px-8">
+        <div class="zurich-primary-dark-text mb-3 font-medium text-2xl mb-4 md:text-start">¡Gracias por elegirnos!</div>
+        <div class="mb-5 zurich-secondary-dark-text">Para completar la cobertura del vehículo <b>{{dominio}}</b> es necesario tomar algunas fotografías para realizar la inspección. Selecciona como querés realizarla.
+        </div>
+    </div>
+
+    <div class="flex justify-content-center flex-wrap" *ngIf="inspeccionDTO">
+        <div class="h-16rem ">
+            <div class="shadow-2 flex flex-column surface-card border-radius-6 in_center px-5 py-4 mx-5">
+                <button pButton pRipple label="Inspección digital" icon="pi pi-mobile" class="px-6 p-button-raised p-button-rounded white-space-nowrap zurich-primary-button mb-4" (click)="goToPageInspeccionDigital()"></button>
+                <button pButton pRipple label="Inspección presencial" icon="pi pi-car" class="px-6 p-button-raised p-button-rounded white-space-nowrap zurich-primary-button mb-4" (click)="goToPageInspeccionPresencial()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <p-progressSpinner [style]="displaySpinner(spinner)"></p-progressSpinner> -->

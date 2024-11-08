@@ -1,0 +1,94 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">Lugares</h1>
+<div class="card">
+    <div class="card-body">
+        <p-toolbar styleClass="p-mb-4 mb-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" routerLink="crear"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table #dt selectionMode="single" [value]="lugares" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+            [rowsPerPageOptions]="[10, 25, 50]" [totalRecords]="totalRecords" (onLazyLoad)="loadLugares($event)" [loading]="loading" [lazy]="true"
+            [resizableColumns]="true"  columnResizeMode="expand" [lazyLoadOnInit]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id" rowspan="2">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="lugar" rowspan="2">Lugar <p-sortIcon field="lugar"></p-sortIcon></th>
+                    <th pSortableColumn="cod_provincia" rowspan="2">Provincia <p-sortIcon field="cod_provincia"></p-sortIcon></th>
+                    <th pSortableColumn="id_ciudades" rowspan="2">Ciudad <p-sortIcon field="id_ciudades"></p-sortIcon></th>
+                    <th pSortableColumn="clave_provloc" rowspan="2">Código Provloc <p-sortIcon field="clave_provloc"></p-sortIcon></th>
+                    <th colspan="4" class="th_center" style="font-size: 0.9rem!important;">Inspecciones </th>
+                    <th pSortableColumn="zona_trd" rowspan="2">Zona tecnored <p-sortIcon field="zona_trd"></p-sortIcon></th>                 
+                    <th pSortableColumn="zona_tarifaria" rowspan="2">Zona tarifaria <p-sortIcon field="zona_tarifaria"></p-sortIcon></th>
+                    <th pSortableColumn="activo" rowspan="2">Activo <p-sortIcon field="activo"></p-sortIcon></th>
+                    <th rowspan="2">Operaciones</th> 
+                </tr>
+                <tr>
+                    <th pSortableColumn="dom_previa_auto" class="th_center">Autos a domicilio <p-sortIcon field="dom_previa_auto"></p-sortIcon></th>
+                    <th pSortableColumn="centro" class="th_center"> Autos en centros <p-sortIcon field="centro"></p-sortIcon></th>
+                    <th pSortableColumn="sini_auto" class="th_center">Autos siniestros <p-sortIcon field="sini_auto"></p-sortIcon></th>
+                    <th pSortableColumn="previa_hogar" class="th_center">De hogar <p-sortIcon field="previa_hogar"></p-sortIcon></th>                                                                                                        
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-lugar>
+                 <tr>
+                    <td> {{ lugar.id }} </td>
+                    <td> {{ lugar.lugar_nombre }} </td>
+                    <td> {{ lugar.provincia_codigo }} </td>
+                    <td> {{ lugar.ciudad_id }} </td>
+                    <td> {{ lugar.clave_provloc }} </td> 
+                    <td class="td_center"> <i [class]="iconActive(lugar.dom_previa_auto)" ></i></td> <!-- class="pi pi-check-circle text-color-green"inspeccion_auto_domicilio -->
+                    <td class="td_center"> <i [class]="iconActive(lugar.centro)" ></i></td> <!-- inspeccion_auto_centro -->
+                    <td class="td_center"> <i [class]="iconActive(lugar.siniestro_auto)" ></i></td> <!-- inspeccion_siniestro -->
+                    <td class="td_center"> <i [class]="iconActive(lugar.previa_hogar)" ></i></td> <!-- inspeccion_hogar -->                   
+                    <td class="uppercase"> {{ lugar.zona_trd }} </td>                  
+                    <td> {{ lugar.zona_tarifaria }} </td>
+                    <td> <p-tag [severity]="severity(lugar.activo)" [value]="value(lugar.activo)"></p-tag> </td>
+                    <!-- <td class="td_center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openUpdate(lugar.id)"></button>
+                    </td> -->
+                    <td class="td_center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" routerLink="{{ lugar.id }}"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>   
+</div>
+
+<!-- <p-dialog [(visible)]="lugarDialog" [style]="{width: '1200px'}" header="{{addOrUpdate}} Lugar" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-7">
+                <div class="field" *ngIf="lugar.id>0">
+                    <label for="id">Id</label>
+                    <input type="text" pInputText id="id" [(ngModel)]="lugar.id" disabled />           
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-7">
+                        <label for="nombre">Lugar</label>
+                        <input type="text" pInputText id="nombre" [(ngModel)]="lugar.lugar_nombre" />     
+                        <small class="p-error" *ngIf="submitted && !lugar.lugar_nombre">Campo requerido</small> 
+                    </div>
+                </div>
+                <div class="p-field">
+                    <label for="provincia_nombre">Provincia</label>                     
+                        <p-dropdown [options]="provincias" [(ngModel)]="selectedProvincia" optionLabel="nombre" [showClear]="true" placeholder="Seleccione..."></p-dropdown>
+                        <small class="p-error" *ngIf="submitted && !lugar.provincia_nombre">Campo requerido</small>          
+                </div>
+                <div class="field mt-4">
+                    <label for="activo" class="mr-4">Activo</label>
+                    <p-inputSwitch [(ngModel)]="lugar.activo"></p-inputSwitch>          
+                </div>
+            </div>         
+        </div>           
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="saveLugar(lugar, dt)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->

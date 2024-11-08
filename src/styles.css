@@ -1,0 +1,53 @@
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, “Segoe UI”, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+}
+
+.p-badge {
+    font-size: 0.5rem !important;
+    font-weight: 700 !important;
+    min-width: 1rem !important;
+    height: 1rem !important;
+    line-height: 1rem !important;
+}
+
+.p-datatable-header {
+    background: #f8f9fa !important;
+    border-width: 1px 0 1px 0 !important;
+    padding-top: .1rem !important;
+    padding-bottom: .1rem !important;
+    border: none !important;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    background: #f8f9fa !important;
+}
+
+.operation-buttons button {
+    margin: 6px;
+}
+
+
+/*  Para el módulo inspecciones*/
+.p-steps .p-steps-item .p-menuitem-link {
+    flex-direction: column !important;
+}
+
+.p-selectbutton .p-button.p-highlight {
+    background: #1c80cf !important;
+    border-color: #1c80cf !important;
+    color: #ffffff !important;
+}
+
+.p-selectbutton .p-button {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #495057 !important;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+}
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";

@@ -1,0 +1,90 @@
+<p-toast></p-toast>
+<h1 style="color: grey">Marcas</h1>
+  <div class="grid">
+    <div class="p-fluid grid col-9">
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left my-0">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText inputId="nombre" (input)="setFilter($any($event.target).value,'nombre')" />
+            <label for="nombre">Nombre</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left my-0">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText inputId="nombreInfoauto" (input)="setFilter($any($event.target).value,'nombreInfoauto')"/>
+            <label for="nombreInfoauto">Nombre Infoauto</label>
+        </span>
+      </div>
+      <div class="p-field col">
+          <button _ngcontent-wtx-c50 pButton pRipple type="button" class="p-element p-mr-3 p-component h-3rem w-7rem p-button-info" label="Buscar" (click)="tablaMarca._filter()">
+            <span class="pi pi-search" aria-hidden="true"></span>
+          </button>
+          <button _ngcontent-wtx-c50 pButton pRipple type="button" class="p-element p-mr-3 p-component h-3rem w-7rem p-button-success" label="Nuevo" (click)="newMarca()">
+            <span class="pi pi-plus" aria-hidden="true"></span>
+          </button>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <div class="card mb-4">
+      <p-table #tablaMarca selectionMode="single" styleClass="p-datatable-striped" [value]="marcas" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]"
+           [globalFilterFields]="['nombre','nombreInfoauto']" [resizableColumns]="true" columnResizeMode="expand">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+              <th pSortableColumn="nombreInfoauto">Nombre Infoauto<p-sortIcon field="nombreInfoauto"></p-sortIcon></th>
+              <th >Operaciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-marcaRow>
+            <tr>
+              <td> {{ marcaRow.id }} </td>
+              <td> {{ marcaRow.nombre }} </td>
+              <td> {{ marcaRow.nombreInfoauto }} </td>
+              <td>
+                <button pButton pRipple class="p-button-rounded p-button-warning p-button p-button-icon-only" (click)="edit(marcaRow)">
+                  <span class="material-icons" [ngStyle]="{ color: '#fff' }">
+                    edit
+                  </span>
+                </button>
+                <button pButton pRipple class="p-button-rounded p-button-danger p-button p-button-icon-only ml-2" (click)="delete(marcaRow)">
+                  <span class="material-icons">
+                    delete
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+      </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="marcaDialog"  header="{{addOrUpdate}} Marca" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field" *ngIf="marca.id>0">
+      <label for="id">ID</label>
+      <input type="text" pInputText id="id" [(ngModel)]="marca.id" disabled />
+    </div>
+    <div class="p-field">
+      <label for="id">NOMBRE</label>
+      <input type="text" pInputText id="nombre" [(ngModel)]="marca.nombre" />
+      <small class="p-error" *ngIf="submitted && !marca.nombre">Campo requerido</small>
+    </div>
+    <div class="p-field">
+      <label for="id">NOMBRE INFOAUTO</label>
+      <input type="text" pInputText id="alias" [(ngModel)]="marca.nombreInfoauto" />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple type="button" label="Cancelar" class="p-button-danger p-element p-mr-3 p-component h-3rem w-7rem p-button-raised p-button-rounded" (click)="hideDialog()"></button>
+      <button pButton pRipple type="button" label="Guardar" class="p-button-primary p-element p-mr-3 p-component h-3rem w-7rem p-button-raised p-button-rounded" (click)="saveMarca(marca)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

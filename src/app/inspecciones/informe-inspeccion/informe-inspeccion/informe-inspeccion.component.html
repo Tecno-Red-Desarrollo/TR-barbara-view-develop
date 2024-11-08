@@ -1,0 +1,199 @@
+<div class="container" style="height: 95vh;" *ngIf="!inspection">
+  <p-card [style]="{'height':'100%'}">
+
+    <div class="flex mb-3">
+      <div>
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height=".5rem"></p-skeleton>
+      </div>
+    </div>
+
+    <p-skeleton width="100%" height="200px"></p-skeleton>
+    <div class="mb-3"></div>
+  </p-card>
+</div>
+
+
+<div class=" container" *ngIf="inspection">
+  <informe-header [inspection]="inspection"></informe-header>
+
+  <p-divider></p-divider>
+
+  <ng-container *ngIf="isInspectionWithDamages()">
+    <p-card>
+      <div class="grid">
+        <div class="md:col-6 sm:col-12" style="display:flex;align-items:center">
+          <informe-danios-viewer [damages]="inspection.Danios || []"
+            (damageViewerFigureClick)="onDamageViewerFigureClicked($event)"></informe-danios-viewer>
+        </div>
+        <div class="md:col-6 sm:col-12">
+          <informe-danios-detalle *ngIf="[1,2,3].includes(inspection.auditado_por);else verifeyeDamagesDetails"
+            [damages]="inspection.damageReport || {}" [inspectionPhotos]="inspection.Fotos"
+            (damageClick)="openPhotoByFileName($event)"></informe-danios-detalle>
+
+
+          <ng-template #verifeyeDamagesDetails>
+            <informe-danios-detalle-verifeye [damages]="verifeyeAnalysis.danios || []"
+              [inspectionPhotos]="inspection.Fotos"
+              (damageClick)="openPhotoByFileName($event)"></informe-danios-detalle-verifeye>
+          </ng-template>
+
+          <!--       <div class="grid" *ngIf="inspection.InspeccionVarios?.latitud && inspection.InspeccionVarios?.longitud">
+                        <div class="col-12">
+                        </div>
+
+                    </div> -->
+        </div>
+
+      </div>
+
+      <p-divider></p-divider>
+
+
+
+    </p-card>
+
+    <p-divider></p-divider>
+  </ng-container>
+
+  <informe-fotos #photos [images]="inspection.Fotos"></informe-fotos>
+
+  <p-divider></p-divider>
+
+  <p-card class="observations-and-data-card">
+    <div class="grid" style="margin:0 !important;">
+      <div class="lg:col-6 md:col-12" style="margin-bottom:10px !important;" *ngIf="isInspectionWithObservations()">
+        <p-fieldset legend="Observaciones" [toggleable]="true" [collapsed]="false">
+          <!--   <p-messages [style]="{'background-color':'rgb(105, 108, 255) !important'}" [(value)]="observationsMessages"
+            [enableService]="false" [closable]="false"></p-messages> -->
+          <div *ngIf="observationsDefinicionInforme && observationsDefinicionInforme.length > 0">
+            <p-timeline [value]="observationsDefinicionInforme">
+              <ng-template pTemplate="content" let-event>
+                <div class="request-data">
+                  {{ event }}
+                </div>
+              </ng-template>
+            </p-timeline>
+          </div>
+        </p-fieldset>
+      </div>
+      <div class="lg:col-6 md:col-12 request-data-column">
+        <p-fieldset legend="Datos de la solicitud" [toggleable]="true" [collapsed]="false">
+          <table id="request-data">
+            <thead>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="request-data-title">ID Compañía</td>
+                <td class="request-data">{{inspection.Solicitud?.codigo}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Dominio</td>
+                <td class="request-data">{{inspection.Solicitud?.dominio}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Marca</td>
+                <td class="request-data">{{inspection.Solicitud?.marca}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Modelo</td>
+                <td class="request-data">{{inspection.Solicitud?.modelo}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Año</td>
+                <td class="request-data">{{inspection.Solicitud?.anio}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">VIN</td>
+                <td class="request-data">{{inspection.Solicitud?.chasis || 'No remitido'}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Asegurado</td>
+                <td class="request-data">{{inspection.Solicitud?.apellido || ''}}
+                  {{inspection.Solicitud?.nombre || ''}}</td>
+              </tr>
+              <tr *ngIf="inspection.Solicitud?.motor">
+                <td class="request-data-title">Motor</td>
+                <td class="request-data">{{inspection.Solicitud?.motor}}</td>
+              </tr>
+
+              <tr *ngIf="(inspection.Solicitud?.Provincia?.Provincias_Nombre
+                            && inspection.Solicitud?.Provincia?.Provincias_Nombre.toLowerCase().indexOf('definir') === -1)
+                            ||(inspection.Solicitud?.Localidad?.lugar
+                            && inspection.Solicitud?.Localidad?.lugar.toLowerCase().indexOf('definir') === -1 )">
+                <td class="request-data-title">Ubicación</td>
+                <td class="request-data">{{inspection.Solicitud?.Provincia?.Provincias_Nombre || ''}}
+                  {{inspection.Solicitud?.Localidad?.lugar || ''}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Uso</td>
+                <td class="request-data">{{inspection.Solicitud?.uso || 'No remitido'}}</td>
+              </tr>
+              <tr>
+                <td class="request-data-title">Auditoría</td>
+                <td class="request-data"> {{getAuditByText(inspection.Solicitud?.lo_audita_in)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </p-fieldset>
+      </div>
+      <div class="lg:col-6 md:col-12" style="margin-bottom:10px !important;"
+        *ngIf="isInspectionWithTrazability() && isUserWithPrivileges()">
+        <p-fieldset legend="Trazabilidad" [toggleable]="true" [collapsed]="true">
+          <!--          <p-messages [style]="{'background-color':'rgb(105, 108, 255) !important'}" [(value)]="observationsMessages"
+            [enableService]="false" [closable]="false"></p-messages> -->
+          <div *ngIf="inspection.ProcesoAuditoriaIA && inspection.ProcesoAuditoriaIA.length > 0">
+            <!-- <table id="ia-process-rules">
+
+                <tbody>
+                    <tr class="rule" *ngFor="let rule of inspection.ProcesoAuditoriaIA">
+                        <td>{{rule.ReglaAuditoriaIA?.descripcion}}</td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <p-timeline [value]="inspection.ProcesoAuditoriaIA" [style]="{'font-size':'13px'}">
+              <ng-template pTemplate="content" let-event>
+                {{ event.ReglaAuditoriaIA?.codigo + ' - ' + event.ReglaAuditoriaIA?.descripcion }}
+              </ng-template>
+            </p-timeline>
+          </div>
+          <div *ngIf="inspection.ProcesoAuditoriaManual && inspection.ProcesoAuditoriaManual.length > 0">
+            <!-- <table id="ia-process-rules">
+
+                <tbody>
+                    <tr class="rule" *ngFor="let rule of inspection.ProcesoAuditoriaIA">
+                        <td>{{rule.ReglaAuditoriaIA?.descripcion}}</td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <p-timeline [value]="inspection.ProcesoAuditoriaManual" [style]="{'font-size':'13px'}">
+              <ng-template pTemplate="content" let-event>
+                {{ event.ReglaAuditoriaManual?.codigo + ' - ' + event.ReglaAuditoriaManual?.descripcion }}
+              </ng-template>
+            </p-timeline>
+          </div>
+        </p-fieldset>
+        <a href="/api/getAuditLogFile?d={{inspection.dominio}}&i={{inspection.id}}" *ngIf="isUserWithPrivileges()"
+          download="{{inspection.dominio}}_{{inspection.id}}.log">
+          <p-button label="Descargar log" icon="pi pi-download" styleClass="p-button-sm"></p-button>
+        </a>
+      </div>
+    </div>
+  </p-card>
+
+
+  <ng-container *ngIf="showMap">
+
+    <p-divider></p-divider>
+    <p-card>
+      <div class="col-12 map-panel">
+        <informe-geo [latitud]="inspection.InspeccionVarios?.latitud"
+          [longitud]="inspection.InspeccionVarios?.longitud"></informe-geo>
+      </div>
+    </p-card>
+  </ng-container>
+
+</div>

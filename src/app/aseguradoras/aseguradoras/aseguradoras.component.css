@@ -1,0 +1,23 @@
+.boton-filtrar {
+    background-color: #009ae1;
+}
+
+td, th {
+  font-size: 10pt !important;
+}
+
+td span i {
+  font-size: 1.2rem;
+}
+
+.th_center, .td_center {
+  text-align: center!important;
+}
+
+.text-color-green {
+  color: var(--green-500);
+}
+
+.text-color-red {
+  color: var(--pink-500);
+}

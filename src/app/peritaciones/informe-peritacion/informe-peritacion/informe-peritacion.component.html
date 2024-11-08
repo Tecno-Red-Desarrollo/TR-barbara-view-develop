@@ -1,0 +1,123 @@
+<div class="container" *ngIf="!peritacion">
+    <div class="border-round border-1 surface-border p-4 surface-card" style="height:100vh">
+        <div class="flex mb-3">
+            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+            <div>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton height=".5rem"></p-skeleton>
+            </div>
+        </div>
+        <p-skeleton width="100%" height="100%"></p-skeleton>
+        <div class="flex justify-content-between mt-3">
+            <p-skeleton width="4rem" height="2rem"></p-skeleton>
+            <p-skeleton width="4rem" height="2rem"></p-skeleton>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="peritacion">
+    <informe-peritacion-header [peritacion]="peritacion"></informe-peritacion-header>
+
+    <p-divider></p-divider>
+
+    <ng-container *ngIf="isInspectionWithDamages()">
+
+
+    </ng-container>
+
+    <p-card>
+        <div class="grid" *ngIf="isInspectionWithDamages()">
+            <div class="md:col-6 sm:col-12" style="display:flex;align-items:center">
+                <informe-peritacion-danios-viewer [damages]="peritacion.Inspeccion?.Danios || []"
+                    (damageViewerFigureClick)="onDamageViewerFigureClicked($event)"></informe-peritacion-danios-viewer>
+            </div>
+            <div class="md:col-6 sm:col-12">
+
+                <h3>Daños en paneles afectados al siniestro</h3>
+                <informe-peritacion-danios-detalle [damages]="peritacion.Inspeccion?.damageReport || {}"
+                    [inspectionPhotos]="peritacion.Inspeccion?.Fotos"
+                    (damageClick)="openPhotoByFileName($event)"></informe-peritacion-danios-detalle>
+
+                <h3>Otros paneles con daños</h3>
+                <informe-peritacion-danios-detalle-verifeye [damages]="verifeyeAnalysis.danios || []"
+                    [inspectionPhotos]="peritacion.Inspeccion?.Fotos"
+                    (damageClick)="openPhotoByFileName($event)"></informe-peritacion-danios-detalle-verifeye>
+
+                <!--       <div class="grid" *ngIf="inspection.InspeccionVarios?.latitud && inspection.InspeccionVarios?.longitud">
+                      <div class="col-12">
+                      </div>
+
+                  </div> -->
+            </div>
+
+        </div>
+        <p-divider></p-divider>
+        <informe-peritacion-fotos #photos [images]="peritacion.Inspeccion?.Fotos"></informe-peritacion-fotos>
+        <p-divider></p-divider>
+        <div style=" position: relative;">
+            <table id="request-data" style="padding:40px">
+                <thead>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr style="padding:10px">
+                        <td class="request-data-title">Costo estimado</td>
+                        <td class="request-data" style="padding-left:10px;font-weight: bold; font-size: 16px;">
+                            {{getFormatDamagePrice()}}</td>
+                    </tr>
+                    <tr>
+                        <td class="request-data-title">Oferta inicial</td>
+                        <td class="request-data" style="padding-left:10px;font-weight: bold; font-size: 16px;">
+                            {{initialOfferPercent}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="request-data-title">Ofrecimiento</td>
+                        <td class="request-data" style="padding-left:10px;font-weight: bold; font-size: 16px;">
+                            {{getFormatInitialOfferPrice()}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <p-divider></p-divider>
+            <!--  <p-speedDial *ngIf="apprasialState != 4" [model]="apprasialMenuActions" [radius]="120" direction="up-left"
+                type="quarter-circle" [style]="{ 'position': 'absolute','bottom': '30px','right': '30px'}"
+                buttonClassName="p-button-info apprasial-action-button"></p-speedDial> -->
+
+            <div class="col" style="width: 100%;display: flex;flex-direction:row-reverse;gap: 10px;padding:20px;"
+                class="apprasialActions" *ngIf="apprasialState != 4">
+                <p-button label="Finalizar peritación" icon="pi pi-check" styleClass="p-button-sm p-button-success"
+                    (click)="finishApprasial()"></p-button>
+                <p-button label="Enviar a perito" *ngIf="apprasialState != 3" icon="pi pi-send" styleClass="p-button-sm"
+                    (click)="openSendToReviewDialog()"></p-button>
+            </div>
+
+        </div>
+
+
+    </p-card>
+
+
+
+    <!-- 
+    <ng-container *ngIf="showMap">
+
+        <p-divider></p-divider>
+        <p-card>
+            <div class="col-12 map-panel">
+                <informe-peritacion-geo [latitud]="peritacion.Inspeccion?.InspeccionVarios?.latitud"
+                    [longitud]="peritacion.Inspeccion?.InspeccionVarios?.longitud"></informe-peritacion-geo>
+            </div>
+        </p-card>
+    </ng-container> -->
+
+
+</div>
+
+<p-dialog header="Enviar a revisión" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+    [(visible)]="sendToReviewDialogVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+
+    <textarea rows="5" cols="30" pInputTextarea style="width: 100% !important;"> </textarea>
+    <p-button label="Enviar" icon="pi pi-send" styleClass="p-button-sm" (click)="sendApprasialToReview()"></p-button>
+
+</p-dialog>

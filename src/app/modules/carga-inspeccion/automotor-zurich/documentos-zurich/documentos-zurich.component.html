@@ -1,0 +1,37 @@
+<div class="py-2 px-2 md:px-8 text-blue-700">
+
+  <div class="text-blue-600 mb-3 font-medium text-2xl mb-1 md:align-content-start text-center">Documentación</div>
+
+  <div class="grid text-blue-700 p-2">
+    <div *ngFor="let item of settingDocuments; let i = index" [attr.data-index]="i" class="col-6">
+      <div (click)="openWindowPhoto(item.archivo, item.etiqueta, i)" [class]="borderColor(item.obligatoria)" style="min-height: 150px;"
+        class="p-1 mx-1 border-radius-6 in_center">
+        <p-card [style]="{'box-shadow':'none', 'background':'none'}">
+          <img [src]="documents[i]" class="text-blue-700" width="130">
+          <!-- <div class="p-buttonset">
+            <button pButton pRipple icon="pi pi-camera" class="p-button-raised p-button-info mx-1"
+              (click)="openWindowPhoto(item.archivo, item.etiqueta, i)"></button>
+            <label for="file-upload" class="custom-file-upload">
+              <i class="pi pi-upload"></i>
+            </label>
+            <input id="file-upload" type="file" (change)="onFileChange($event)" [class]="displayInputFile" />
+          </div>-->
+          <div style="padding: 10px; font-weight: 500;">{{item.etiqueta}}</div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-content-center flex-wrap card-container yellow-container mt-5">
+    <div class="flex align-items-center justify-content-center text-pink-500">
+      <span class="circle"></span>
+    </div>
+    <div class="flex align-items-center justify-content-center ml-2 text-pink-500">Documentación obligatoria</div>
+  </div>
+
+  <div class="text-center">
+    <button pButton pRipple label="Finalizar" icon="pi pi-chevron-circle-right" iconPos="right"
+      class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 mt-7" (click)="nextPage()">
+    </button>
+  </div>
+</div>

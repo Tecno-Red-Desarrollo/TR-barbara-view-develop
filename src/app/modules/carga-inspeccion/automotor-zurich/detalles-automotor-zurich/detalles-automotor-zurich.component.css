@@ -1,0 +1,15 @@
+::ng-deep .p-togglebutton.p-button.p-highlight {
+  background: #1c80cf;
+  border-color: #1c80cf;
+  color: #fff;
+}
+
+::ng-deep .p-togglebutton.p-button:focus.p-highlight {
+  background: #1c80cf;
+  border-color: #1c80cf;
+  color: #fff;
+}
+
+::ng-deep .p-togglebutton.p-button.p-highlight .p-button-icon-left, .p-togglebutton.p-button.p-highlight .p-button-icon-right {
+  color: #fff;
+}

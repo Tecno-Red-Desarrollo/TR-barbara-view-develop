@@ -1,0 +1,74 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">Provincias</h1>
+<div class="card">
+    <p-toolbar styleClass="p-mb-4 mb-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt selectionMode="single" [value]="provincias" [paginator]="true" [rows]="10"
+    [showCurrentPageReport]="true" responsiveLayout="scroll"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50]"
+    [globalFilterFields]="['nombre','alias']" [resizableColumns]="true" columnResizeMode="expand">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0 title-datatable">PROVINCIAS</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nombre">NOMBRE <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="alias">ALIAS <p-sortIcon field="alias"></p-sortIcon></th>
+                <th>OPERACIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-provincia>
+            <tr>
+                <td>{{provincia.id}}</td>
+                <td>{{provincia.nombre}}</td>
+                <td>{{provincia.alias}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-mr-2" (click)="openUpdate(provincia)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="openDelete(provincia)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Hay un total de {{provincias ? provincias.length : 0 }} provincias.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="provinciaDialog" [style]="{width: '450px'}" header="{{addOrUpdate}} PROVINCIA" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field" *ngIf="provincia.id>0">
+            <label for="id">ID</label>
+            <input type="text" pInputText id="id" [(ngModel)]="provincia.id" disabled />           
+        </div>
+        <div class="p-field">
+            <label for="id">NOMBRE</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="provincia.nombre" />     
+            <small class="p-error" *ngIf="submitted && !provincia.nombre">Campo requerido</small>      
+        </div>
+        <div class="p-field">
+            <label for="id">ALIAS</label>
+            <input type="text" pInputText id="alias" [(ngModel)]="provincia.alias" />
+            <small class="p-error" *ngIf="submitted && !provincia.alias">Campo requerido</small>           
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="saveProvincia(provincia)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

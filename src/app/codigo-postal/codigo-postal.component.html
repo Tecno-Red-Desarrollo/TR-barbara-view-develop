@@ -1,0 +1,68 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">Códigos Postales</h1>
+<div class="card">
+    <div class="card-body">
+        <p-toolbar styleClass="p-mb-4 mb-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table #dt selectionMode="single" [value]="postalCodes" [paginator]="true" [rows]="10"  responsiveLayout="scroll"
+            [rowsPerPageOptions]="[10, 25, 50]" [totalRecords]="totalRecords" (onLazyLoad)="loadPostalCodes($event)" [loading]="loading" [lazy]="true"
+            [resizableColumns]="true"  columnResizeMode="expand" [reorderableColumns]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>                
+                  <th pSortableColumn="cp">Codigo Postal<p-sortIcon field="cp"></p-sortIcon></th>
+                  <th pSortableColumn="ciudad">Ciudad<p-sortIcon field="ciudad"></p-sortIcon></th>
+                  <th pSortableColumn="provincia">Provincia<p-sortIcon field="provincia"></p-sortIcon></th>
+                  <th class="th_center">Operaciones</th>             
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-postalCode>
+                 <tr>
+                    <td> {{ postalCode.id }} </td>
+                    <td> {{ postalCode.codigo_postal }} </td>
+                    <td> {{ postalCode.ciudad_nombre }} </td>
+                    <td> {{ postalCode.provincia_id }} </td>
+                    <td class="td_center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning ml-2" (click)="openUpdate(postalCode)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="openDelete(postalCode, dt)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>   
+</div>
+
+<p-dialog [(visible)]="postalCodeDialog" [style]="{width: '450px'}" header="{{addOrUpdate}} Código Postal" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field" *ngIf="postalCode.id>0">
+            <label for="id">Id</label>
+            <input type="text" pInputText id="id" [(ngModel)]="postalCode.id" disabled />           
+        </div>
+        <div class="p-field">
+            <label for="nombre">Código postal</label>
+            <input type="number" pInputText id="nombre" [(ngModel)]="postalCode.codigo_postal" />     
+            <small class="p-error" *ngIf="submitted && !postalCode.codigo_postal">Campo requerido</small>      
+        </div>
+        <div class="p-field">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" pInputText id="ciudad" [(ngModel)]="postalCode.ciudad_nombre" />     
+            <small class="p-error" *ngIf="submitted && !postalCode.ciudad_nombre">Campo requerido</small>      
+        </div>
+        <div class="p-field">
+            <label for="provincia">Provincia</label>
+            <input type="number" pInputText id="provincia" [(ngModel)]="postalCode.provincia_id" />     
+            <small class="p-error" *ngIf="submitted && !postalCode.provincia_id">Campo requerido</small>      
+        </div>     
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="savePostalCode(postalCode, dt)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

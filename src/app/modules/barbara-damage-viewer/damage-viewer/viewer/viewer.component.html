@@ -1,0 +1,13 @@
+<div [ngClass]="viewerClass" #damageViewer>
+        <svg class="vehicle" id="vehicle-damage-viewer" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 643 604">
+
+                <g id="backViewer">
+                        <rect #vehicleBackground width="643" height="604" />
+                </g>
+                <g id="svg-vehicle" svg-vehicle [vehicleTypeId]="vehicleTypeId" (figureClick)="onFigureClick($event)" [strokeColor]="strokeColor"></g>
+
+                <g *ngFor="let point of damagePoints" damage-point [x]="point.x" [y]="point.y"
+                        [severity]="point.severity" [damagesCount]="point.damagesCount"></g>
+        </svg>
+</div>

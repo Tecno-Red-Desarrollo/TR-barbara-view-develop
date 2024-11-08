@@ -1,0 +1,79 @@
+<h1 class="p-m-0" style="color: #495057;">Resultado Análisis Barbara Vision</h1>
+<div class="grid filtros-repo" style="margin: 10px;">
+
+  <div class="p-fluid grid">
+
+    <div class="p-field col">
+            <span class="p-float-label p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="setFilter($any($event.target).value,'dominio')"
+                       class="p-inputtext-sm"/>
+                <label for="dominioInput">Dominio</label>
+            </span>
+    </div>
+    <div class="p-field col">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="fechaDesde" [showIcon]="true" inputId="fechaDesde"
+                            (onInput)="setFilter(fechaDesde,'fechaDesde')" (onSelect)="setFilter(fechaDesde,'fechaDesde')"
+                            dateFormat="dd/mm/yy"></p-calendar>
+                <label for="fechaDesde">Desde</label>
+            </span>
+
+    </div>
+    <div class="p-field col">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="fechaHasta" [showIcon]="true" inputId="fechaHasta"
+                            (onInput)="setFilter(fechaDesde,'fechaDesde')" (onSelect)="setFilter(fechaHasta,'fechaHasta')"
+                            dateFormat="dd/mm/yy" [minDate]="fechaDesde"></p-calendar>
+                <label for="fechaHasta">Hasta</label>
+            </span>
+
+    </div>
+    <div class="p-field col">
+      <p-button label="Filtrar" icon="pi pi-search" (click)="tablaBrbVision._filter()"></p-button>
+    </div>
+
+
+  </div>
+
+</div>
+<div class="tabla-repo">
+  <p-table #tablaBrbVision [columns]="selectedColumns" [value]="analisisIA" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll" [totalRecords]="totalRecords"
+           currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+           [rowsPerPageOptions]="[5,10,25,50]" [lazy]="true"
+           (onLazyLoad)="lazyLoadTableRecords($event)" [loading]="loading" [globalFilterFields]="['dominio']" [resizableColumns]="true"
+           columnResizeMode="expand">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button type="button" pButton pRipple icon="pi pi-file" (click)="tablaBrbVision.exportCSV()" class="mr-2" pTooltip="Descargar CSV"
+                tooltipPosition="top"></button>
+        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"
+                pTooltip="Descargar Excel"
+                tooltipPosition="top"></button>
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columnas seleccionadas"
+                       [style]="{minWidth: '200px'}" placeholder="Seleccione Columnas"></p-multiSelect>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-analisisIARow let-columns="columns">
+      <tr>
+
+        <td *ngFor="let col of columns">
+          <div *ngIf="col.field =='fechaAnalisis'">
+            <p>{{analisisIARow[col.field] |date:'dd/MM/YYYY HH:mm:ss'}}</p>
+          </div>
+          <div *ngIf="col.field !='fechaAnalisis'">
+            <p>{{analisisIARow[col.field]}}</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

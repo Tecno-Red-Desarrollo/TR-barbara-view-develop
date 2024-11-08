@@ -1,0 +1,144 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "barbara-angular": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:application": {
+                    "strict": true
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/barbara-angular",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        
+                        "styles": [
+                            "src/styles.css",
+                            "node_modules/primeicons/primeicons.css",
+                            "node_modules/primeflex/primeflex.css",
+                            "@fancyapps/ui/dist/fancybox.css"
+                        ],
+                        "scripts": [
+                            "@fancyapps/ui/dist/fancybox.umd.js",
+                            "moment/moment.js",
+                            "node_modules/jquery/dist/jquery.min.js",
+                            "src/assets/js/mapFunctions.js",
+                            "node_modules/underscore/underscore-min.js",
+                            "src/assets/js/sweetalert2.js",
+                            "src/assets/js/piexif.js",
+                            "src/assets/js/geoPosition.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "scripts": [
+                                "@fancyapps/ui/dist/fancybox.umd.js",
+                                "moment/moment.js",
+                                "node_modules/jquery/dist/jquery.min.js",
+                                "src/assets/js/mapFunctions.js",
+                                "node_modules/underscore/underscore-min.js",
+                                "src/assets/js/sweetalert2.js",
+                                "src/assets/js/piexif.js",
+                                "src/assets/js/geoPosition.js",
+                                "src/environments/setDevCredentials.js"
+                            ]
+                        },
+                        "testing": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.testing.ts"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "barbara-angular:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "barbara-angular:build:development"
+                        },
+                        "testing": {
+                            "browserTarget": "barbara-angular:build:testing"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "barbara-angular:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.css"
+                        ],
+                        "scripts": []
+                    }
+                }
+            }
+        }
+    },
+    "cli": {
+      "analytics": false
+    }
+}

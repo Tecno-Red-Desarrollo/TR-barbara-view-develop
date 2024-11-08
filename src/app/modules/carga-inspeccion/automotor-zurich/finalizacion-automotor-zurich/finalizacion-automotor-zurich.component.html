@@ -1,0 +1,97 @@
+<p-toast></p-toast>
+<div class="py-5 px-2 md:px-8 text-blue-700" [style]="filterBlur">
+    <div class="text-blue-600 mb-3 font-medium text-2xl mb-1 md:align-content-start text-center">Inspección finalizada</div>
+    <div class="col-12 flex justify-content-center flex-wrap wrapper">
+        <div class="h-16rem ">
+            <div class="shadow-2 flex flex-column surface-card border-round px-3 py-3">
+                <div class="col-12 md:col-12 lg:col-12">
+                    <div class="text-center lg:mx-4">
+                        <span class="circle text-white"><i class="pi pi-check"></i>
+                        </span>
+                    </div>
+                    <p class="mt-4 justify-content-start"><b>Muchas gracias</b> por completar la autoinspección de tu vehículo.</p>
+                    <div class="flex flex-column card-container green-container">
+                      <div class="flex align-items-center justify-content-center h-4rem m-1">
+                        <div class="flex align-items-center" style="width:3rem;height:3rem">
+                            <i class="pi pi-car text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                          <span class="mb-1">{{inspeccionDTO.inspeccion.vehiculo.marca}}</span>
+                          <div>{{inspeccionDTO.inspeccion.vehiculo.modelo}}</div>
+                        </div>
+                      </div>
+                      <div class="flex align-items-center justify-content-center h-4rem m-1 -ml-7">
+                        <div class="flex align-items-center" style="width:3rem;height:3rem">
+                            <i class="pi pi-file text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="mb-1">Número de gestión</span>
+                            <div class="font-medium">{{barbara_id}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <p class="mt-4 ">Dentro de las próximas <b>48 horas</b> tendremos el resultado
+                      de tu inspección. Si todo fue bien, recibirás por correo electrónico una copia
+                      de tu póliza.
+                      Si llegáramos a necesitar más datos, o si la inspección es rechazada, nos comunicaremos
+                      para ofrecerte nuevas opciones de cobertura.
+                    </p>
+                    <p class="my-4">
+                      Mientras tanto, recordá que durante 15 días, contas con el certificado de cobertura provisorio
+                      que te permite circular.
+                    </p>
+                    <p>
+                      Por cualquier duda, podés comunicarte con tu productor asesor o con el 0800-333-ZURICH(9874)
+                    </p>
+                    <div class="text-center">
+                      <button pButton pRipple label="Finalizar" iconPos="right" (click)="finalizar()"
+                        class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 mt-3">
+                      </button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog header="Encuesta de calidad" [(visible)]="showSurvey">
+  <div class="col-12 md:col-12 lg:col-12">
+    <h3 class="text-center">Antes de terminar, te pedimos que nos califiques</h3>
+    <div class="surface-card pt-1">
+      <div class="flex flex-column card-container green-container">
+        <div class="mb-3 text-center">
+          <div class="flex align-items-center justify-content-center h-4rem mt-2">
+            <span class="block text-500 font-medium mb-1">¿Qué tan fácil te resultó hacer la autoinspección?</span>
+          </div>
+          <div class="flex align-items-center justify-content-center">
+            <p-rating [cancel]="false" [(ngModel)]="puntajeFacilidad" (onRate)="onChangeScore(puntajeFacilidad, 'Facilidad')"></p-rating>
+          </div>
+          <div class="flex justify-content-between flex-wrap text-sm ml-2 mr-2">
+            <span class="flex align-items-center justify-content-center">Muy difícil</span>
+            <span class="flex align-items-center justify-content-center">Muy fácil</span>
+          </div>
+        </div>
+        <div class="mb-2 text-center">
+          <div class="flex align-items-center justify-content-center h-4rem mt-2">
+            <span class="block text-500 font-medium mb-1">¿Recomendarías esta manera de hacer la inspección de tu vehículo?</span>
+          </div>
+          <div class="flex align-items-center justify-content-center">
+            <p-rating [cancel]="false" [(ngModel)]="puntajeRecomendacion" (onRate)="onChangeScore(puntajeRecomendacion, 'Recomendacion')"></p-rating>
+          </div>
+          <div class="flex justify-content-between flex-wrap text-sm ml-2 mr-2">
+            <span class="flex align-items-center justify-content-center">No recomendaría</span>
+            <span class="flex align-items-center justify-content-center">Seguro recomendaría</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button pButton pRipple label="Enviar" icon="pi pi-close" iconPos="right"
+        class="px-5 p-button-raised p-button-rounded white-space-nowrap bg-blue-700 mt-7"
+        (click)="sendScore()">
+      </button>
+    </div>
+</div>
+</p-dialog>

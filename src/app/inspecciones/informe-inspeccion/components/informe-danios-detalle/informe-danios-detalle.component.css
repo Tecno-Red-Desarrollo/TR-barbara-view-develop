@@ -1,0 +1,53 @@
+:host ::ng-deep .p-tree {
+    border: none !important;
+    font-size: 14px !important;
+}
+
+:host ::ng-deep .p-tree-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+:host ::ng-deep .p-treenode-content .danio-node{
+   font-size: 12px !important;
+}
+
+:host ::ng-deep .p-treenode-content {
+    height: 32px !important;
+}
+
+:host ::ng-deep .p-treenode-content:focus {
+    background-color: transparent !important;
+}
+
+:host ::ng-deep .p-treenode-content:active {
+    background-color: transparent !important;
+}
+
+:host ::ng-deep .back-yellow {
+    background: yellow !important;
+    color: black !important;
+}
+
+:host ::ng-deep .back-orange {
+    background: rgb(255, 177, 33) !important;
+    color: black !important;
+}
+
+:host ::ng-deep .back-red {
+    background: red !important;
+    color: white !important;
+}
+
+:host ::ng-deep .p-badge {
+    font-size: 9px !important;
+}
+
+.img-thumbnail {
+    width: 80px;
+    border-radius: 14px !important;
+    object-fit: cover;
+    -o-object-fit: cover;
+    padding: 4px;
+}
+

@@ -1,0 +1,357 @@
+<p-contextMenu #cmRepo [model]="checkAvailability()" [style]="{'font-size':'9pt'}"></p-contextMenu>
+
+<p-confirmDialog header="Confirmación" key="anularDialog" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-dialog [(visible)]="enviarLinkDialog" [modal]="true"
+  header="Enviar link del gestionador - {{selectedRow.dominio | uppercase}}" [style]="{width: '50vw'}">
+  <div class="p-grid p-fluid" style="margin-top: 10px;">
+    <span class="p-input-icon-left p-float-label">
+      <i class="pi pi-at"></i>
+      <input #emailGestionador id="email-input" type="text" pInputText [ngModel]="selectedRow.gestionador_email"
+        [pKeyFilter]="blockSpaceFilter" [disabled]=validateEnvio(selectedRow)>
+      <label for="email-input">Email</label>
+
+    </span>
+    <p-divider></p-divider>
+    <span *ngIf="sms_available" class="p-input-icon-left p-float-label">
+      <i class="pi pi-phone"></i>
+      <input [(ngModel)]="celularAsegurado" id="celular-input" type="text" pInputText [pKeyFilter]="blockSpaceFilter"
+        [disabled]="checkSms(selectedRow) || validateEnvio(selectedRow)">
+      <label *ngIf="!checkSms(selectedRow)" for="celular-input">Celular asegurado</label>
+      <label *ngIf="checkSms(selectedRow)" for="celular-input">Se ha alcanzado el limite de envios de sms</label>
+
+    </span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button type="button" pButton icon="pi pi-send" label="Enviar" [loading]="loadingEnviarLink"
+      (click)="enviarLinkGestionador(emailGestionador.value,celularAsegurado)"
+      [disabled]="!helper.checkEmail(emailGestionador.value) || validateEnvio(selectedRow)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="linkAseguradoDialog" [modal]="true" header="Link asegurado - {{selectedRow.dominio | uppercase}}"
+  [style]="{width: '50vw'}">
+
+  <div class="p-grid p-fluid" style="margin-top: 10px;">
+
+    <span class="p-input-icon-left p-float-label">
+      <i class="pi pi-link"></i>
+      <textarea id="link-ase-input" [rows]="6" [value]="helper.getLinkAsegurado(selectedRow)" pInputTextarea
+        (autoResize)="true" readonly></textarea>
+      <label for="link-ase-input">Link</label>
+    </span>
+    <button type="button" pButton icon="pi pi-copy" label="Copiar"
+      (click)="copyToClickBoard(helper.getLinkAsegurado(selectedRow))"></button>
+  </div>
+
+</p-dialog>
+<div (keydown.enter)="tablaRepo._filter()">
+  <div (keydown.enter)="tablaRepo._filter()" class="grid filtros-repo" style="margin: 10px;">
+
+    <div class="p-fluid grid">
+
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" [(ngModel)]="dominio" (input)="setFilter(dominio,'dominio')"
+            class="p-inputtext-sm" />
+          <label for="dominioInput">Dominio</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input inputId="codigoInput" pInputText type="text" [(ngModel)]="codigo" (input)="setFilter(codigo, 'codigo')"
+            class="p-inputtext-sm" />
+          <label for="codigoInput">Código</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-dropdown [(ngModel)]="estado" [options]="estados" optionLabel="enombre" placeholder="Estado"
+            [showClear]="true" (onChange)="setFilter($any($event).value,'estado')"></p-dropdown>
+          <label for="canalDropdown">Estado</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-calendar [(ngModel)]="fechaDesde" [showIcon]="true" inputId="fechaDesde" [showButtonBar]="true"
+            (onInput)="setFilter(fechaDesde,'fechaDesde')" (onSelect)="setFilter(fechaDesde,'fechaDesde')" (onClearClick)="limpiarFechas('fechaDesde')"  
+            dateFormat="dd/mm/yy"></p-calendar>
+          <label for="fechaDesde">Desde</label>
+        </span>
+
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-calendar [(ngModel)]="fechaHasta" [showIcon]="true" inputId="fechaHasta" [showButtonBar]="true"
+            (onInput)="setFilter(fechaHasta,'fechaHasta')" (onSelect)="setFilter(fechaHasta,'fechaHasta')" (onClearClick)="limpiarFechas('fechaHasta')" 
+            dateFormat="dd/mm/yy" [minDate]="fechaDesde"></p-calendar>
+          <label for="fechaHasta">Hasta</label>
+        </span>
+
+      </div>
+      <div class="p-field col" *ngIf="aseguradoras_available.length > 1">
+        <span class="p-float-label">
+          <p-multiSelect [(ngModel)]="selectedAseguradoras" [options]="aseguradoras"
+            (onChange)="setFilter($any($event).value,'aseguradora')" optionLabel="nombre" [maxSelectedLabels]="3"
+            [selectedItemsLabel]="'{0} items seleccionados'">
+            <ng-template let-option pTemplate="item">
+              <div class="p-multiselect-representative-option">
+                <span class="p-ml-1">{{option.nombre}}</span>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+          <label for="aseguradoraDropdown">Aseguradora</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-multiSelect [(ngModel)]="selectedCanales" [options]="canales"
+            (onChange)="setFilter($any($event).value,'canal')" optionLabel="nombre" [maxSelectedLabels]="3"
+            [selectedItemsLabel]="'{0} items seleccionados'">
+            <ng-template let-option pTemplate="item">
+              <div class="p-multiselect-representative-option">
+                <span class="p-ml-1">{{option.nombre}}</span>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+          <label for="canalDropdown">Canal</label>
+        </span>
+      </div>
+      <!--      <div class="p-field col">-->
+      <!--            <span class="p-float-label p-input-icon-left">-->
+      <!--                <i class="pi pi-search"></i>-->
+      <!--                <input inputId="chasisInput" pInputText type="text"-->
+      <!--                       (input)="setFilter($any($event.target).value, 'chasis')" class="p-inputtext-sm"/>-->
+      <!--                <label for="chasisInput">Chasis</label>-->
+      <!--            </span>-->
+      <!--      </div>-->
+
+      <div class="p-field col">
+        <span class="p-float-label">
+          <p-multiSelect [(ngModel)]="selectedProvincias" [options]="provincias"
+            (onChange)="setFilter($any($event).value,'provincia')" optionLabel="nombre" [maxSelectedLabels]="3"
+            [selectedItemsLabel]="'{0} items seleccionados'">
+            <ng-template let-option pTemplate="item">
+              <div class="p-multiselect-representative-option">
+                <span class="p-ml-1">{{option.nombre}}</span>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+          <label for="provinciaDropdown">Provincia</label>
+        </span>
+      </div>
+      <div class="p-field col">
+        <div class="field-checkbox">
+          <p-checkbox [(ngModel)]="reinspeccionada" [binary]="true" inputId="binary"
+            (onChange)="setFilter(reinspeccionada,'reinspeccionada')"></p-checkbox>
+          <label for="binary">Reinspeccionada</label>
+        </div>
+      </div>
+
+      <div class="p-field col">
+        <p-button label="Filtrar" icon="pi pi-search" (click)="tablaRepo._filter()"></p-button>
+      </div>
+      <div class="p-field col">
+        <p-button label="Limpiar Filtros" icon="pi pi-search" (click)="clearFilters()"></p-button>
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="tabla-repo">
+    <p-table #tablaRepo selectionMode="single" [value]="repositorio" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" responsiveLayout="scroll" [totalRecords]="totalRecords"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+      [rowsPerPageOptions]="[10,25,50]" [contextMenu]="cmRepo" [(contextMenuSelection)]="selectedRow" [lazy]="true"
+      (onLazyLoad)="loadRepositorio($event)" [loading]="loading" [globalFilterFields]="['dominio']"
+      [resizableColumns]="true" columnResizeMode="expand" [columns]="selectedColumns">
+      <ng-template pTemplate="caption">
+        <p-multiSelect [options]="getToggleColumns()" [(ngModel)]="selectedColumns" optionLabel="header"
+          selectedItemsLabel="Columnas" [style]="{minWidth: '200px'}" placeholder="Elegir columnas">
+        </p-multiSelect>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+
+          <ng-container *ngFor="let col of columns" [ngSwitch]="col.id">
+            <ng-container *ngSwitchCase="'DOMINIO'">
+              <th pSortableColumn="{{col.sort}}">
+                {{col.header}}
+                <p-sortIcon field="{{col.sort}}"></p-sortIcon>
+              </th>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_SOLICITUD'">
+              <th pSortableColumn="{{col.sort}}">
+                {{col.header}}
+                <p-sortIcon field="{{col.sort}}"></p-sortIcon>
+              </th>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_INSPECCION'">
+              <th pSortableColumn="{{col.sort}}">
+                {{col.header}}
+                <p-sortIcon field="{{col.sort}}"></p-sortIcon>
+              </th>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_AUDITADO'">
+              <th pSortableColumn="{{col.sort}}">
+                {{col.header}}
+                <p-sortIcon field="{{col.sort}}"></p-sortIcon>
+              </th>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <th>
+                {{col.header}}
+              </th>
+            </ng-container>
+
+          </ng-container>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-repositorioRow let-rowIndex="rowIndex" let-columns="columns">
+        <tr [pContextMenuRow]="repositorioRow" [pSelectableRow]="repositorioRow" [pSelectableRowIndex]="rowIndex">
+
+          <ng-container *ngFor="let col of columns" [ngSwitch]="col.id">
+            <ng-container *ngSwitchCase="'ESTADO'">
+              <td>
+                <p-tag styleClass="p-mr-2" [icon]="helper.getEstadoIcon(repositorioRow.estado)"
+                  [style]="{'background-color':helper.getEstadoColor(repositorioRow)}"
+                  [value]="repositorioRow.Estado.estado_nombre"></p-tag>
+              </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'REINSPECCION'">
+              <td>
+                <span *ngIf="repositorioRow.reinspeccion == 1 " class="material-icons"
+                  pTooltip="Reinspección incompleta" tooltipPosition="top">
+                  sync_problem
+                </span>
+                <span *ngIf="repositorioRow.reinspeccion == 2" class="material-icons" pTooltip="Ha sido reinspeccionada"
+                  tooltipPosition="top">
+                  cached
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'VER_IP'">
+              <td>
+                <span *ngIf="repositorioRow.estado == 5 && isUserWithPrivileges()" class="material-icons"
+                  style="cursor: pointer;"
+                  (click)="openIframe(url + 'api/inspeccion/report/' + repositorioRow.id_brb)"
+                  pTooltip="Ver inspección" tooltipPosition="top">
+                  zoom_in
+                </span>
+                <span *ngIf="repositorioRow.estado == 5" class="material-icons" style="cursor: pointer;"
+                  (click)="openIframe(url + 'carga_ver_2018.asp?id=' + repositorioRow.id_brb)" pTooltip="Ver inspección"
+                  tooltipPosition="top">
+                  zoom_in
+                </span>
+                <span *ngIf="repositorioRow.estado == 7" class="material-icons"
+                  (click)="openIframe(url + 'carga_error_fotos_2021.asp?id_brb=' + repositorioRow.id_brb + '&id=' + repositorioRow.id +'&d=' + repositorioRow.dominio)"
+                  pTooltip="Ver errores" tooltipPosition="top">
+                  linked_camera
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'DOMINIO'">
+              <td class="dominio">
+                {{repositorioRow[col.field]}}
+              </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_SOLICITUD'">
+              <td> {{repositorioRow.fecha | date:'dd/MM/YYYY HH:mm'}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_INSPECCION'">
+              <td> {{repositorioRow.Inspeccion?.fecha | date:'dd/MM/YYYY HH:mm'}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'FECHA_AUDITADO'">
+              <td> {{repositorioRow.Auditoria?.fecha_auditado | date:'dd/MM/YYYY HH:mm'}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'ASEGURADORA'">
+              <td> {{repositorioRow.Aseguradora.Aseguradoras_Nombre}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'ASEGURADO'">
+              <td class="asegurado-nombre">{{repositorioRow.apellido}} {{repositorioRow.nombre}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'CANAL'">
+              <td> {{helper.getCanal(repositorioRow.canal)}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'CANT_AVISOS'">
+              <td class="column-cant-avisos">
+                <span *ngIf="repositorioRow.cant_email > 0" class="material-icons"
+                  [pTooltip]="tooltipEmail(repositorioRow)" tooltipPosition="top" pBadge
+                  [value]="repositorioRow.cant_email" (click)="selectedRow = repositorioRow;enviarLinkDialog = true">
+                  forward_to_inbox
+                </span>
+                <span *ngIf="repositorioRow.cant_sms > 0" class="material-icons"
+                  pTooltip="{{repositorioRow.cant_sms}} sms enviado{{ repositorioRow.cant_sms > 1 ? 's':''}}"
+                  tooltipPosition="top" pBadge [value]="repositorioRow.cant_sms">
+                  sms
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'COBERTURA_SOLICITADA'">
+              <td> {{repositorioRow.cobertura}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'COBERTURA_OTORGADA'">
+              <td> {{repositorioRow.Inspeccion?.cobertura}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'AUDITA'">
+              <td> {{helper.getAudita(repositorioRow.lo_audita)}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'VER_IN'">
+              <td> {{repositorioRow.InspeccionOriginal?.ver}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'VER'">
+              <td> {{repositorioRow.Inspeccion?.ver}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'DANIO'">
+              <td> {{repositorioRow.InspeccionVarios?.danio}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'TIEMPO'">
+              <td> {{repositorioRow.Auditoria?.tiempo}} </td>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <td>
+                {{repositorioRow[col.field]}}
+              </td>
+            </ng-container>
+
+          </ng-container>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="row">
+      <div class="p-field col download-row">
+        <p-button label="Exportar" icon="pi pi-download" styleClass="p-button-success"
+          (click)="downloadReport()"></p-button>
+      </div>
+    </div>
+  </div>
+</div>

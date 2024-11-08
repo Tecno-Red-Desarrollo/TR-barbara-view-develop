@@ -1,0 +1,134 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">Talleres</h1>
+<div class="card">
+    <div class="card-body">
+        <p-toolbar styleClass="p-mb-4 mb-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table #dt selectionMode="single" [value]="talleres" [paginator]="true" [rows]="10"  responsiveLayout="scroll"
+            [rowsPerPageOptions]="[10, 25, 50]" [totalRecords]="totalRecords" (onLazyLoad)="loadTalleres($event)" [loading]="loading" [lazy]="true"
+            [resizableColumns]="true"  columnResizeMode="expand" [reorderableColumns]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                  <th pSortableColumn="aseguradora">Aseguradora<p-sortIcon field="aseguradora"></p-sortIcon></th>
+                  <th pSortableColumn="nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+                  <th pSortableColumn="cp">Codigo Postal<p-sortIcon field="codigo_postal"></p-sortIcon></th>
+                  <th pSortableColumn="id_lugar">Lugar<p-sortIcon field="lugar_nombre"></p-sortIcon></th>
+                  <th>Dirección</th>
+                  <th>Horario</th>
+                  <th pSortableColumn="activo">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+                  <th class="th_center">Operaciones</th>             
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-taller>
+                 <tr > <!--[style] = "backgroundActive(taller.activo)" -->
+                    <td> {{ taller.id }} </td>
+                    <td> 
+                        <img [alt]="taller.aseguradora_nombre" title="{{taller.aseguradora_nombre}}"
+                            src="https://tst.barbara.com.ar/img/logos/{{taller.aseguradora_id}}.png" width="100"
+                            style="vertical-align: middle;margin-right: -1em;" />
+                    </td>
+                    <td> {{ taller.nombre }} </td>
+                    <td> {{ taller.codigo_postal }} </td>
+                    <td> {{ taller.lugar_nombre }} </td>
+                    <td> {{ taller.direccion }} </td>
+                    <td> {{ taller.horario }} </td>
+                    <td> 
+                        <p-tag [severity]="severity(taller.activo)" [value]="value(taller.activo)"></p-tag> 
+                    </td>
+                    <td class="td_center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openUpdate(taller)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- <dt-taller #dt [talleres]="talleres"></dt-taller> -->
+    </div>   
+</div>
+
+<p-dialog [(visible)]="tallerDialog" [style]="{width: '1200px'}" header="{{addOrUpdate}} Taller" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-7">
+                <div class="field" *ngIf="taller.id>0">
+                    <label for="id">Id</label>
+                    <input type="text" pInputText id="id" [(ngModel)]="taller.id" disabled />           
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-7">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" pInputText id="nombre" [(ngModel)]="taller.nombre" />     
+                        <small class="p-error" *ngIf="submitted && !taller.nombre">Campo requerido</small> 
+                    </div>
+                    <div class="field col-5">
+                        <label for="aseguradora_nombre">Aseguradora</label>                     
+                        <p-dropdown [options]="aseguradoras" [(ngModel)]="selectedAseguradora" optionLabel="nombre" [showClear]="true" placeholder="Seleccione..."></p-dropdown>
+                        <small class="p-error" *ngIf="submitted && !taller.aseguradora_nombre">Campo requerido</small>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-5">
+                        <label for="direccion">Contacto</label>
+                        <input type="text" pInputText id="contacto" [(ngModel)]="taller.contacto" />
+                    <small class="p-error" *ngIf="submitted && !taller.contacto">Campo requerido</small>
+                    </div>
+                    <div class="field col-7">
+                        <label for="codigo_postal">Teléfono</label>
+                        <input type="text" pInputText id="telefono" [(ngModel)]="taller.telefono" />
+                        <small class="p-error" *ngIf="submitted && !taller.telefono">Campo requerido</small>
+                    </div>                
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" pInputText id="email" [(ngModel)]="taller.email" />
+                    <small class="p-error" *ngIf="submitted && !taller.email">Campo requerido</small>           
+                </div>                            
+                <div class="field">
+                    <label for="horario">Horario</label>
+                    <input type="text" pInputText id="horario" [(ngModel)]="taller.horario"/>
+                    <small class="p-error" *ngIf="submitted && !taller.horario">Campo requerido</small>           
+                </div>
+                <div class="field mt-4">
+                    <label for="activo" class="mr-4">Activo</label>
+                    <p-inputSwitch [(ngModel)]="taller.activo"></p-inputSwitch>          
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="field">
+                    <label for="geo">Geo</label>
+                    <textarea id="geo" pInputTextarea [autoResize]="autoResize" rows="10" cols="50" class="inputfield w-full" [(ngModel)]="taller.geo"></textarea>     
+                </div>
+                <div class="field" style="margin-top: 19px;">
+                    <label for="lugar_nombre">Lugar</label>
+                    <p-dropdown [options]="lugares" [virtualScroll]="true" [itemSize]="10" [filter]="true" [(ngModel)]="selectedLugar" 
+                                optionvValue="id" optionLabel="nombre"
+                                placeholder="Seleccione..."></p-dropdown>
+                    <small class="p-error" *ngIf="submitted && !taller.lugar_nombre">Campo requerido</small>
+                </div>  
+                <div class="formgrid grid">
+                    <div class="field col-9">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" pInputText id="direccion" [(ngModel)]="taller.direccion" />
+                        <small class="p-error" *ngIf="submitted && !!taller.codigo_postal">Campo requerido</small>
+                    </div>
+                    <div class="field col-3">
+                        <label for="codigo_postal">Código postal</label>
+                        <input type="text" pInputText id="codigo_postal" [(ngModel)]="taller.codigo_postal" />
+                        <small class="p-error" *ngIf="submitted && !!taller.codigo_postal">Campo requerido</small>
+                    </div>                
+                </div>
+            </div>           
+        </div>           
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button" (click)="saveTaller(taller, dt)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

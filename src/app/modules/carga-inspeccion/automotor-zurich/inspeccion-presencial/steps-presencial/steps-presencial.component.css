@@ -1,0 +1,30 @@
+::ng-deep body {
+    background-color: #d4ddd9 !important;
+    margin: 0px;
+}
+
+.in-blue-border-circle {
+    display: block;
+    border-color: #44f;
+    border: 1px solid #44f;
+    color: #44f;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-family: Verdana;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+::ng-deep .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+    padding-top: 0.5rem;
+    padding-left: 0;
+    white-space: normal;
+    text-align: center;
+}

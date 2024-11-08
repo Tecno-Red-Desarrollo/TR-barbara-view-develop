@@ -1,0 +1,50 @@
+.border-radius-6 {
+    border-radius: 6px;
+    border-style: dashed;
+  }
+
+  .in_center {
+    text-align: center;
+    place-content: center;
+  }
+
+  .circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border-style: dashed;
+  }
+
+  .cardClick:active {
+    box-shadow: 0 0 1px -1px rgba(0,0,0,0.6);
+  }
+
+  .img-mirror {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  ::ng-deep .p-card .p-card-content {
+    padding: 0rem!important;
+  }
+
+  ::ng-deep .p-card .p-card-body {
+    padding: 0rem!important;
+  }
+
+  ::ng-deep .p-dialog-content {
+    display: flex;
+    justify-content: center;
+  }
+
+
+  .image-adjusted{
+    width:80%;
+    max-width: 600px;
+    box-shadow: none;
+    background: none;
+    object-fit: cover;
+    border-radius: 5px;
+    align-self: self-start;
+  }

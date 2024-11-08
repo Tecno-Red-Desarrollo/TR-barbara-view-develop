@@ -1,0 +1,81 @@
+enum VERGroups {
+    CASCO = "Casco",
+    CUBIERTAS_LLANTAS = "Cubiertas/LLantas",
+    OPTICAS_LUCES = "Ópticas/Luces",
+    CRISTALES = "Cristales",
+    ACCESORIOS = "Accesorios"
+}
+
+enum PartsGroups {
+    BAUL_PORTON = "Baúl/Portón",
+    AUXILIO = "Auxilio",
+    CAPOT = "Capot",
+    CUBIERTA_DELANTERA_DERECHA = "Cubierta Delantera Derecha",
+    CUBIERTA_DELANTERA_IZQUIERDA = "Cubierta Delantera Izquierda",
+    CUBIERTA_TRASERA_DERECHA = "Cubierta Trasera Derecha",
+    CUBIERTA_TRASERA_IZQUIERDA = "Cubierta Trasera Izquierda",
+    GUARDABARRO_DELANTERO_DERECHO = "Guardabarro Delantero Derecho",
+    GUARDABARRO_DELANTERO_IZQUIERDO = "Guardabarro Delantero Izquierdo",
+    GUARDABARRO_TRASERO_DERECHO = "Guardabarro Trasero Derecho",
+    GUARDABARRO_TRASERO_IZQUIERDO = "Guardabarro Trasero Izquierdo",
+    LATERAL_DERECHO = "Lateral Derecho",
+    LATERAL_IZQUIERDO = "Lateral Izquierdo",
+    LUCES_TRASERAS = "Luces Traseras",
+    LUNETA = "Luneta",
+    LUZ_DELANTERA = "Luz Delantera",
+    LUZ_GIRO = "Luz Giro",
+    OTROS = "Otros",
+    PARABRISA = "Parabrisa",
+    PARAGOLPE_DELANTERO = "Paragolpe Delantero",
+    PARAGOLPE_TRASERO = "Paragolpe Trasero",
+    PARANTE_DERECHO = "Parante Derecho",
+    PARANTE_IZQUIERDO = "Parante Izquierdo",
+    PUERTA_DELANTERA_DERECHA = "Puerta Delantera Derecha",
+    PUERTA_DELANTERA_IZQUIERDA = "Puerta Delantera Izquierda",
+    PUERTA_DERECHA = "Puerta Derecha",
+    PUERTA_IZQUIERDA = "Puerta Izquierda",
+    PUERTA_TRASERA_DERECHA = "Puerta Trasera Derecha",
+    PUERTA_TRASERA_IZQUIERDA = "Puerta Trasera Izquierda",
+    TECHO = "Techo",
+    ZOCALO_DERECHO = "Zócalo Derecho",
+    ZOCALO_IZQUIERDO = "Zócalo Izquierdo"
+}
+
+enum PartsSubGroups {
+    PANEL = "Panel",
+    LLANTA_TASA = "Llanta/Tasa",
+    SPOILER = "Spoiler",
+    MOLDURA = "Moldura",
+    POSICION_DERECHA = "Posición Derecha",
+    ANTINIEBLAS_DERECHA = "Antinieblas Derecha",
+    POSICION_IZQUIERDA = "Posición Izquierda",
+    ANTINIEBLAS_IZQUIERDA = "Antinieblas Izquierda",
+    CRISTAL = "Cristal",
+    DERECHO = "Derecho",
+    IZQUIERDA = "Izquierda",
+    LOGO_MARCA = "Logo Marca",
+    PLACA_PATENTE = "Placa Patente",
+    TAPA_COMBUSTIBLE = "Tapa Combustible",
+    PARRILLA_INFERIOR = "Parrilla Inferior",
+    PARRILLA_SUPERIOR = "Parrilla Superior",
+    REFLECTOR_TRASERO_SUPERIOR = "Reflector Trasero Superior",
+    REFLECTOR_TRASERO_INFERIOR = "Reflector Trasero Inferior",
+    PROTECTOR = "Protector",
+    SENSOR_ESTACIONAMIENTO = "Sensor Estacionamiento",
+    PANEL_A = "Panel A",
+    PANEL_B = "Panel B",
+    PANEL_C = "Panel C",
+    PANEL_D = "Panel D",
+    ESPEJO = "Espejo",
+    MANIJA = "Manija",
+    GUIA_EQUIPAJE_DERECHA = "Guía Equipaje Derecha",
+    GUIA_EQUIPAJE_IZQUIERDA = "Guía Equipaje Izquierda",
+    PORTAEQUIPAJE = "Portaequipaje",
+    ESTRIBO = "Estribo"
+}
+
+export {
+    PartsGroups,
+    PartsSubGroups,
+    VERGroups
+}

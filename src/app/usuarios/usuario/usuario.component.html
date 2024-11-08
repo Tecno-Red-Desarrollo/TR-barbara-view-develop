@@ -1,0 +1,193 @@
+<p-toast></p-toast>
+<h1 style="color: grey">{{ formTitle }} Usuario</h1>
+<div class="grid">
+  <!-- <h5 *ngIf="usuario.id>0">{{usuario.id}}</h5> -->
+  <div class="p-fluid grid col-12 p-3">
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="usuario" class="mb-2">Usuario</label>
+      </div>
+      <input type="text" pInputText id="usuario" [(ngModel)]="usuario.usuario" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="pass" class="mb-2">Contraseña</label>
+      </div>
+      <input type="password" pInputText id="pass" [(ngModel)]="usuario.pass" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="codigo" class="mb-2">Código</label>
+      </div>
+      <input type="text" pInputText id="codigo" [(ngModel)]="usuario.codigo" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="rol" class="mb-2">Rol</label>
+      </div>
+      <input type="text" pInputText id="rol" [(ngModel)]="usuario.rol_id" />
+    </div>
+  </div>
+  </div>
+  <div class="p-fluid grid col-12 p-3">
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="apellido" class="mb-2">Apellido</label>
+      </div>
+      <input type="text" pInputText id="apellido" [(ngModel)]="usuario.apellido" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="nombre" class="mb-2">Nombre</label>
+      </div>
+      <input type="text" pInputText id="nombre" [(ngModel)]="usuario.nombre" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="dni" class="mb-2">DNI</label>
+      </div>
+      <input type="text" pInputText id="dni" [(ngModel)]="usuario.dni" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="cuit" class="mb-2">CUIT</label>
+      </div>
+      <input type="text" pInputText id="cuit"  [(ngModel)]="usuario.cuit" />
+    </div>
+
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="taller" class="mb-2">Taller</label>
+      </div>
+      <input type="text" pInputText id="taller" [(ngModel)]="usuario.taller" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="cp" class="mb-2">Código Postal</label>
+      </div>
+      <input type="text" pInputText id="cp" [(ngModel)]="usuario.cp" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="provincia" class="mb-2">Provincia</label>
+      </div>
+      <input type="text" pInputText id="provincia" [(ngModel)]="usuario.provincia_id" />
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="localidad" class="mb-2">Localidad</label>
+      </div>
+      <input type="text" pInputText id="localidad" [(ngModel)]="usuario.localidad_id" />
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 p-3">
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="email" class="mb-2">Email</label>
+      </div>
+      <input type="text" pInputText id="email" [(ngModel)]="usuario.email"/>
+    </div>
+    <div class="p-field col-3">
+      <div class="mb-2">
+        <label for="telefono" class="mb-2">Teléfono</label>
+      </div>
+      <input type="text" pInputText id="telefono" [(ngModel)]="usuario.telefono" />
+    </div>
+
+  <div class="p-fluid grid col-12 p-3">
+
+    <div class="p-field col-2">
+      <div class="mb-2">
+        <label for="password2" class="mb-2">Repetir Contraseña</label>
+      </div>
+      <input type="text" pInputText id="password2" />
+    </div>
+    <div class="p-field col-1">
+      <div class="mb-2">
+        <label for="id_agenda" class="mb-2">ID Agenda</label>
+      </div>
+      <input type="text" pInputText id="id_agenda" [(ngModel)]="usuario.id_agenda" />
+    </div>
+    <div class="p-field col-5 centrado">
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="audita" value="Auditable" id="audita" [(ngModel)]="usuario.audita"></p-checkbox>
+        <label for="audita">Auditable</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="puede_auditar" value="Puede auditar?" id="puede_auditar" [(ngModel)]="usuario.puede_auditar"></p-checkbox>
+        <label for="puede_auditar">Puede Auditar?</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="aviso_prueba" value="Aviso prueba?" id="aviso_prueba" [(ngModel)]="usuario.aviso_prueba"></p-checkbox>
+        <label for="aviso_prueba">Aviso Prueba?</label>
+      </div>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 p-3">
+    <div class="p-field col-6 centrado">
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo1" value="Autos" id="tipo1" [(ngModel)]="usuario.tipo1"></p-checkbox>
+        <label for="tipo1">Autos</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo5" value="La Caja" id="tipo5" [(ngModel)]="usuario.tipo5"></p-checkbox>
+        <label for="tipo5">La Caja</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo4" value="Country" id="tipo4" [(ngModel)]="usuario.tipo4"></p-checkbox>
+        <label for="tipo4">Country</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo2" value="Aviso prueba?" id="tipo2" [(ngModel)]="usuario.tipo2"></p-checkbox>
+        <label for="tipo2">Combinado familiar</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo6" value="San Cristobal" id="tipo6" [(ngModel)]="usuario.tipo6"></p-checkbox>
+        <label for="tipo6">San Cristobal</label>
+      </div>
+    </div>
+    <div class="p-field col-6 centrado">
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo8" value="HDI" id="tipo8" [(ngModel)]="usuario.tipo8"></p-checkbox>
+        <label for="tipo8">HDi</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo7" value="Reducido" id="tipo7" [(ngModel)]="usuario.tipo7"></p-checkbox>
+        <label for="tipo7">Reducido</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo3" value="Web App" id="tipo3" [(ngModel)]="usuario.tipo3"></p-checkbox>
+        <label for="tipo3">Web App</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-6">
+        <p-checkbox name="repo" value="Repo" id="repo" [(ngModel)]="usuario.repo"></p-checkbox>
+        <label for="repo">Repo</label>
+      </div>
+      <div class="field-checkbox mt-5 mx-5">
+        <p-checkbox name="tipo9" value="Seg Tec" id="tipo9" [(ngModel)]="usuario.tipo9"></p-checkbox>
+        <label for="tipo9">Seg Tec</label>
+      </div>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 p-3">
+    <div class="p-field col-6">
+      <div class="mb-3">
+        <label for="aseguradora" class="mb-2">Aseguradoras</label>
+      </div>
+      <p-listbox class="mx-3" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="aseguradoras"></p-listbox>
+    </div>
+    <div class="p-field col-6">
+      <div class="mb-3">
+        <label for="aseguradora" class="mb-2">Prestadores</label>
+      </div>
+      <p-listbox [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="prestadores"></p-listbox>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 p-3 flex justify-content-end flex-wrap">
+    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" class="p-button-danger p-element p-mr-3 p-component w-7rem h-3rem p-button-raised ml-2" routerLink="/usuarios"></button>
+    <button pButton pRipple type="button" label="Guardar" icon="pi pi-check" class="p-button-primary p-element p-mr-3 p-component w-7rem h-3rem p-button-raised mx-2" ></button>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,55 @@
+::ng-deep body {
+    background-color: #d4ddd9 !important;
+    margin: 0px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+::ng-deep .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+    padding-top: 0.5rem;
+    padding-left: 0;
+    white-space: normal;
+    text-align: center;
+}
+
+::ng-deep .p-steps-number {
+    z-index: 1 !important;
+    min-width: 2.4rem !important;
+    height: 2.4rem !important;
+    background-color: #69b6d55c !important;
+}
+
+::ng-deep .p-steps-number::after {
+    z-index: -1 !important;
+    content: '';
+    display: inline-block;
+    width: 1.74rem;
+    height: 1.74rem;
+    -moz-border-radius: 45px;
+    -webkit-border-radius: 45px;
+    border-radius: 45px;
+    background-color: var(--zurich-primary-color) !important;
+    position: absolute;
+}
+
+::ng-deep .p-disabled .p-steps-number,
+::ng-deep .p-disabled .p-steps-number::after {
+    background-color: transparent !important;
+    color: var(--zurich-primary-color) !important;
+}
+
+::ng-deep .p-disabled .p-steps-number::after {
+    border-style: solid !important;
+    border-width: 1px;
+    border-color: var(--zurich-primary-color) !important;
+    
+}
+
+::ng-deep .p-disabled.complete .p-steps-number::after{
+    background-color: var(--zurich-primary-color) !important;
+}
+::ng-deep .p-disabled.complete .p-steps-number{
+    color: white !important;
+}

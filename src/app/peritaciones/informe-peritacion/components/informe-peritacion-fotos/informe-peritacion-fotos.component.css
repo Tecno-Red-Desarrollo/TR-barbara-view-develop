@@ -1,0 +1,47 @@
+.img-thumbnail {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px !important;
+    object-fit: cover;
+    -o-object-fit: cover;
+    padding: 4px;
+}
+
+.img-thumbnail-container {
+    text-align: center;
+}
+
+.img-thumbnail-reinspection {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px !important;
+  border-color: rgb(237, 139, 100) !important;
+  border-width: 3px !important;
+  border-style: solid;
+  object-fit: cover;
+  -o-object-fit: cover;
+  
+}
+
+.img-label {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button{
+    background-color: #01579B;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background: rgb(95, 95, 223) !important;
+}
+
+@media only screen and (max-width: 480px) {
+    .img-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}

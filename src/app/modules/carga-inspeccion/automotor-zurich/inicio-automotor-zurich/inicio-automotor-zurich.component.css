@@ -1,0 +1,21 @@
+::ng-deep body{
+    background-color: #d4ddd9 !important;
+    margin: 0px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+.d-inline-flex {
+    display: inline-grid;
+}
+
+.in_center {
+    text-align: center;
+    place-content: center;
+}
+
+.bicolor {
+    background: linear-gradient(to bottom,  #baccc4 0%,#baccc4 60%,#d4ddd9 50%,#d4ddd9 100%)
+}

@@ -1,0 +1,107 @@
+<p-toast></p-toast>
+<h1 class="p-m-0" style="color: #495057;">Estados</h1>
+<div class="card"> 
+    <div class="card-body">
+        <p-toolbar styleClass="p-mb-4 mb-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table #dt selectionMode="single" [value]="estados" [paginator]="true" [rows]="10"
+        [showCurrentPageReport]="true" responsiveLayout="scroll" [rowsPerPageOptions]="[10,25,50]"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"       
+        [globalFilterFields]="['nombre','enombre','rol','nombrePublico']" [resizableColumns]="true" columnResizeMode="expand">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between"> 
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                    <th pSortableColumn="enombre">E-Nombre <p-sortIcon field="enombre"></p-sortIcon></th>
+                    <th pSortableColumn="siniestros" class="th_center">Siniestros <p-sortIcon field="siniestros"></p-sortIcon></th>
+                    <th pSortableColumn="agenda" class="th_center">Agenda <p-sortIcon field="agenda"></p-sortIcon></th>
+                    <th pSortableColumn="rol">Rol <p-sortIcon field="rol"></p-sortIcon></th>
+                    <th pSortableColumn="nombrePublico">Nombre Público <p-sortIcon field="nombrePublico"></p-sortIcon></th>
+                    <th style="text-align: center;">Operaciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-estado>
+                <tr>
+                    <td>{{estado.id}}</td>
+                    <td>{{estado.nombre}}</td>
+                    <td>{{estado.enombre}}</td>
+                    <td class="icons_estado">
+                        <span *ngIf="estado.siniestros == true"><i class="pi pi-check-circle text-color-green"></i></span>
+                        <span *ngIf="estado.siniestros == false"><i class="pi pi-times text-color-red" ></i></span> 
+                    </td>
+                    <td class="icons_estado">
+                        <span *ngIf="estado.agenda == true"><i class="pi pi-check-circle text-color-green"></i></span>
+                        <span *ngIf="estado.agenda == false"><i class="pi pi-times text-color-red"></i></span> 
+                    </td>
+                    <td>{{estado.rol}}</td>
+                    <td>{{estado.nombrePublico}}</td>
+                    <td class="td_center">
+                        <button pButton pRipple class="p-button-rounded p-button-warning p-button-icon-only ml-2 btn-action" (click)="openUpdate(estado)" style="color:#fff">
+                            <span class="material-icons"> edit </span>
+                        </button>
+                        <button pButton pRipple class="p-button-rounded p-button-danger p-button-icon-only ml-2 btn-action" (click)="openDelete(estado)">
+                            <span class="material-icons"> delete </span>
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>  
+</div>
+
+<p-dialog [(visible)]="estadoDialog" [style]="{width: '450px'}" header="{{addOrUpdate}} ESTADO" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field" *ngIf="estado.id>0">
+            <label for="id">Id</label>
+            <input type="text" pInputText id="id" [(ngModel)]="estado.id" disabled />           
+        </div>
+        <div class="p-field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="estado.nombre" />     
+            <small class="p-error" *ngIf="submitted && !estado.nombre">Campo requerido</small>      
+        </div>
+        <div class="p-field">
+            <label for="enombre">E-Nombre</label>
+            <input type="text" pInputText id="enombre" [(ngModel)]="estado.enombre" />
+            <small class="p-error" *ngIf="submitted && !!estado.enombre">Campo requerido</small>           
+        </div>
+        <div class="formgroup-inline flex justify-content-around flex-wrap mt-4 mb-5">
+            <div class="flex align-items-center justify-content-center">
+                <label for="siniestros" class="mr-4">Siniestros</label>
+                <p-inputSwitch [(ngModel)]="estado.siniestros"></p-inputSwitch>  
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <label for="agenda" class="mr-4">Agenda</label>
+                <p-inputSwitch [(ngModel)]="estado.agenda"></p-inputSwitch>
+            </div>
+        </div>
+        <div class="p-field">
+            <label for="rol">Rol</label>
+            <input type="text" pInputText id="rol" [(ngModel)]="estado.rol" />
+            <small class="p-error" *ngIf="submitted && !estado.rol">Campo requerido</small>           
+        </div>
+        <div class="p-field">
+            <label for="nombrePublico">Nombre Público</label>
+            <textarea id="nombrePublico" pInputTextarea [autoResize]="autoResize" rows="5" cols="30" class="inputfield w-full" [(ngModel)]="estado.nombrePublico"></textarea>
+            <small class="p-error" *ngIf="submitted && !estado.nombrePublico">Campo requerido</small>           
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" icon="pi pi-times" label="Cancelar" class="p-button-danger p-button-rounded" (click)="hideDialog()"></button>
+        <button pButton pRipple type="button" icon="pi pi-check" label="Guardar" class="p-button p-button-rounded" (click)="saveEstado(estado)"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

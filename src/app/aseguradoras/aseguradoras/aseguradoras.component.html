@@ -1,0 +1,80 @@
+<h1 style="color: grey">Aseguradoras</h1>
+
+<div class="grid">
+
+    <!-- <div class="p-fluid grid col-9">
+        <div class="p-field col">
+            <span class="p-float-label">
+                <input inputId="nombreInput" type="text" pInputText [(ngModel)]="nombre"/>
+                <label for="nombreInput">Nombre</label>
+            </span>
+        </div>
+    </div> -->
+
+  <div class="p-field col">
+      <button pButton pRipple type="button" class="p-element p-component mr-2 mr-0 h-3rem w-6rem p-button-success" label="Nuevo" routerLink="aseguradora">
+        <span class="pi pi-plus" aria-hidden="true"></span>
+      </button>
+      <button pButton pRipple type="button" class="p-element p-component ml-2 h-3rem w-8rem p-button-info" label="Descargar">
+        <span class="pi pi-download" aria-hidden="true"></span>
+      </button>
+  </div>
+</div>
+
+<div class="tabla my-3">
+    <p-table #tablaAseguradoras [value]="aseguradoras"
+        responsiveLayout="scroll" selectionMode="single"
+        [lazy]="true" (onLazyLoad)="loadAseguradoras($event)"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+        [showCurrentPageReport]="true" [totalRecords]="totalRecords"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [resizableColumns]="true" columnResizeMode="expand">
+
+        <ng-template pTemplate="header">
+            <tr>
+              <th class="th_center" pSortableColumn="Aseguradoras_Id">Id<p-sortIcon field="id"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="Aseguradoras_Nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="Aseguradoras_Alias">Alias<p-sortIcon field="alias"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="Aseguradoras_Vence">Vence<p-sortIcon field="vence"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="sistema_carga">Bárbara<p-sortIcon field="barbara"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="previas">Previas<p-sortIcon field="previas"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="terceros">Terceros<p-sortIcon field="terceros"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="asegurados">Asegurados<p-sortIcon field="asegurados"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="consultas_publicas">Consultas Públicas<p-sortIcon field="consultas"></p-sortIcon></th>
+              <th class="th_center" pSortableColumn="activa">Activa<p-sortIcon field="activa"></p-sortIcon></th>
+              <!-- <th class="th_center" pSortableColumn="ddjj">DDJJ<p-sortIcon field="ddjj"></p-sortIcon></th> -->
+              <th class="th_center">Operaciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-aseguradora>
+            <tr>
+                <td class="td_center"> {{aseguradora.id}} </td>
+                <td class="td_center"> {{aseguradora.nombre}} </td>
+                <td class="td_center"> {{aseguradora.alias}} </td>
+                <td class="td_center"> {{aseguradora.email}} </td>
+                <td class="td_center"> {{aseguradora.vence}} </td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.barbara)"></i></td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.previas)"></i></td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.terceros)"></i></td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.asegurados)"></i></td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.consultas_publicas)"></i></td>
+                <td class="td_center"><i [class]="iconActive(aseguradora.activa)"></i></td>
+                <!-- <td class="td_center"> {{aseguradora.aseguradora_ddjj}} </td> -->
+                <td class="td_center">
+                    <div class="operation-buttons">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-mr-2" (click)="editar(aseguradora)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" click="delete(aseguradora)"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+
+</div>
+
+
+

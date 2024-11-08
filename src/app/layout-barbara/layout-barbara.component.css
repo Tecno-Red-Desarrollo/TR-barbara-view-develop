@@ -1,0 +1,7 @@
+body {
+    padding: 2em;
+}
+
+::ng-deep body {
+    background-color: #ffffff ;
+}

@@ -1,0 +1,111 @@
+<!-- <p-button (click)="showBasicDialog()" icon="pi pi-external-link" label="Show"></p-button> -->
+<p-dialog header="ALTA INSPECCIÓN" [(visible)]="displayModal" [style]="{width: '50vw', height: '680px'}">
+  <div class="p-fluid grid col-12">
+    <div class="p-field col">
+      <span class="p-float-label">
+          <p-dropdown inputId="ddjjAseguradoDropdown" optionLabel="ddjjAsegurado" [filter]="true"></p-dropdown>
+        <label for="ddjjAseguradoDropdown">DDJJ Asegurado</label>
+      </span>
+    </div>
+    <div class="p-field col">
+      <span class="p-float-label">
+        <p-dropdown inputId="coberturaDropdown" optionLabel="cobertura" [filter]="true"></p-dropdown>
+        <label for="coberturaDropdown">Cobertura</label>
+      </span>
+    </div>
+    <div class="p-field col">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input inputId="dominioInput" pInputText />
+        <label for="dominioInput">Dominio</label>
+      </span>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 mt-3">
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input inputId="nombreInput" pInputText />
+        <label for="nombreInput">Nombre</label>
+      </span>
+    </div>
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input inputId="apellidoInput" pInputText />
+        <label for="apellidoInput">Apellido</label>
+      </span>
+    </div>
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-mobile"></i>
+        <input inputId="celularInput" pInputText />
+        <label for="celularInput">Celular</label>
+      </span>
+    </div>
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input type="email" inputId="emailInput" pInputText />
+        <label for="emailInput">Email</label>
+      </span>
+    </div>
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input type="email" inputId="emailProductorInput" pInputText />
+        <label for="emailProductorInput">Email Productor</label>
+      </span>
+    </div>
+    <div class="p-field col-4">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input type="email" inputId="emaiOrganizadorlInput" pInputText />
+        <label for="emailOrganizadorInput">Email Organizador</label>
+      </span>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 mt-3">
+    <div class="p-field col">
+      <span class="p-float-label">
+          <p-dropdown inputId="marcaDropdown" optionLabel="marca" [filter]="true"></p-dropdown>
+        <label for="marcaDropdown">Marca</label>
+      </span>
+    </div>
+    <div class="p-field col">
+      <span class="p-float-label">
+        <p-dropdown inputId="modeloaDropdown" optionLabel="cobertura" [filter]="true"></p-dropdown>
+        <label for="modeloDropdown">Modelo</label>
+      </span>
+    </div>
+    <div class="p-field col">
+      <span class="p-float-label">
+        <input inputId="anioInput" pInputText />
+        <label for="anioInput">Año</label>
+      </span>
+    </div>
+  </div>
+  <div class="p-fluid grid col-12 mt-1">
+    <div class="p-field col">
+      <button type="button" label="Alta Individual" class="p-element p-ripple p-button-raised p-button p-component">
+        <span class="p-button-label">ALTA INDIVIDUAL</span>
+      </button>
+      <div class="p-inputgroup mt-5">
+        <span class="p-inputgroup-addon p-element p-button-raised p-button-info p-button p-component p-button-icon-only">
+            <i class="pi pi-plus"></i>
+        </span>
+        <span class="p-float-label">
+            <input type="text" id="inputgroup" pInputText class="inputtext-lg">
+            <label for="inputgroup">Seleccionar Archivo</label>
+        </span>
+      </div>
+      <button type="button" label="Alta Masiva" class="p-element p-button-raised p-button p-component mt-5">
+        <span class="p-button-label">ALTA MASIVA</span>
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+
+
+
