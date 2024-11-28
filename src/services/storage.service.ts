@@ -21,7 +21,7 @@ export class StorageService {
     }
 
     isUserWithPrivileges() {
-        return [1027, 49, 104, 105, 102, 7446, 6268].some(uid => uid === this.getUserId())
+        return [1027, 49, 104, 105, 102, 7446, 6268,6307,6308].some(uid => uid === this.getUserId())
     }
 
     getAseguradoras() {
